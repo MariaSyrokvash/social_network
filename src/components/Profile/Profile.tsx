@@ -2,19 +2,19 @@ import React from 'react';
 import profile from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import { MyPostsType } from '../../redux/state';
-
+import {ProfilePageType} from '../../redux/state';
 
 type ProfileTypeProps = {
-  postsData: Array<MyPostsType>
-  addNewPost: (message: string) => void
+  postsData: ProfilePageType
+  addNewPost: () => void
+  trackTextarea: (value: string) => void
 }
 
 const Profile = (props: ProfileTypeProps) => {
   return (
     <div className={profile.profile}>
       <ProfileInfo />
-      <MyPosts postsData={props.postsData} addNewPost={props.addNewPost}/>
+      <MyPosts postsData={props.postsData} addNewPost={props.addNewPost} trackTextarea={props.trackTextarea} newPostContent={props.postsData.newPostContent}/>
     </div>
   )
 }

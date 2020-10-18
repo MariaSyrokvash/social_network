@@ -1,21 +1,23 @@
 import {rerenderApp} from "../render";
+import {v1} from 'uuid'
 
 export type MyPostsType = {
-	id: number
+	id: string
 	message: string
 	likeCount: number
 	image: string
 }
 export type ProfilePageType = {
 	postsData: Array<MyPostsType>
+	newPostContent: string
 }
 export type DialogsDataType = {
-	id: number
+	id: string
 	name: string
 	image: string
 }
 export type MessagesDataType = {
-	id: number
+	id: string
 	message: string
 }
 export type MessagePageType = {
@@ -23,7 +25,7 @@ export type MessagePageType = {
 	dialogsData: Array<DialogsDataType>
 }
 export type NavBarDataType = {
-	id: number
+	id: string
 	friend: string
 }
 export type NavbarPageType = {
@@ -38,47 +40,55 @@ export type stateTypeProps = {
 const state: stateTypeProps = {
 	profilePage: {
 		postsData: [
-			{id: 1, message: 'Do you know who killed Kennedy?', likeCount: 3, image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg'},
-			{id: 2, message: 'Do you have plans to weekend?', likeCount: 10, image: 'https://iqonic.design/themes/socialv/html/images/user/06.jpg'},
-		]
+			{id: v1(), message: 'Do you know who killed Kennedy?', likeCount: 3, image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg'},
+			{id: v1(), message: 'Do you have plans to weekend?', likeCount: 10, image: 'https://iqonic.design/themes/socialv/html/images/user/06.jpg'},
+		],
+		newPostContent: ''
 	},
 	dialogsPage: {
 		messagesData: [
-			{id: 1, message: 'Go outside!'},
-			{id: 2, message: 'What are you doing?'},
-			{id: 3, message: 'There is the house where my family lives.'},
-			{id: 4, message: 'We go jogging every Sunday!'},
-			{id: 5, message: 'They didn’t go to school last year.'},
+			{id: v1(), message: 'Go outside!'},
+			{id: v1(), message: 'What are you doing?'},
+			{id: v1(), message: 'There is the house where my family lives.'},
+			{id: v1(), message: 'We go jogging every Sunday!'},
+			{id: v1(), message: 'They didn’t go to school last year.'},
 		],
 		dialogsData: [
-			{id: 1, name: 'Boris', image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg' },
-			{id: 2, name: 'Denis', image: 'https://iqonic.design/themes/socialv/html/images/user/07.jpg'},
-			{id: 3, name: 'Iosif', image: 'https://iqonic.design/themes/socialv/html/images/user/09.jpg'},
-			{id: 4, name: 'Yekaterina', image: 'https://iqonic.design/themes/socialv/html/images/user/08.jpg'},
-			{id: 5, name: 'Larisa', image: 'https://iqonic.design/themes/socialv/html/images/user/06.jpg'},
+			{id: v1(), name: 'Boris', image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg' },
+			{id: v1(), name: 'Denis', image: 'https://iqonic.design/themes/socialv/html/images/user/07.jpg'},
+			{id: v1(), name: 'Iosif', image: 'https://iqonic.design/themes/socialv/html/images/user/09.jpg'},
+			{id: v1(), name: 'Yekaterina', image: 'https://iqonic.design/themes/socialv/html/images/user/08.jpg'},
+			{id: v1(), name: 'Larisa', image: 'https://iqonic.design/themes/socialv/html/images/user/06.jpg'},
 		]
 	},
 	navBarPage: {
 		navBarData: [
-			{id: 1, friend: 'Boris'},
-			{id: 2, friend: 'Denis'},
-			{id: 3, friend: 'Iosif'},
-			{id: 4, friend: 'Jack'},
-			{id: 5, friend: 'Larisa'}
+			{id: v1(), friend: 'Boris'},
+			{id: v1(), friend: 'Denis'},
+			{id: v1(), friend: 'Iosif'},
+			{id: v1(), friend: 'Jack'},
+			{id: v1(), friend: 'Larisa'}
 		]
 	}
 }
 
 
-export const addNewPost = (message: string) => {
+export const addNewPost = () => {
 	const newPost: MyPostsType = {
-		id: new Date().getTime(),
-		message: message,
+		id: v1(),
+		message: state.profilePage.newPostContent,
 		likeCount: 0,
 		image: 'https://iqonic.design/themes/socialv/html/images/user/01.jpg'
 	}
 
 	state.profilePage.postsData.push(newPost);
+	state.profilePage.newPostContent = ''
+	rerenderApp(state)
+}
+
+
+export const trackTextarea = (newText: string) => {
+	state.profilePage.newPostContent = newText;
 	rerenderApp(state)
 }
 
