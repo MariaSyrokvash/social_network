@@ -1,5 +1,11 @@
-import {rerenderApp} from "../render";
+// import {rerenderApp} from "../render";
 import {v1} from 'uuid'
+
+let rerenderApp = () => {
+	console.log('state changed')
+}
+
+
 
 export type MyPostsType = {
 	id: string
@@ -83,13 +89,19 @@ export const addNewPost = () => {
 
 	state.profilePage.postsData.push(newPost);
 	state.profilePage.newPostContent = ''
-	rerenderApp(state)
+	rerenderApp()
 }
 
 
 export const trackTextarea = (newText: string) => {
 	state.profilePage.newPostContent = newText;
-	rerenderApp(state)
+	rerenderApp()
 }
+
+
+export const subscribe = (observer: () => void) => {
+	rerenderApp = observer;
+}
+
 
 export default state;
