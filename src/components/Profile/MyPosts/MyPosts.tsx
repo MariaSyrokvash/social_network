@@ -1,13 +1,14 @@
 import React from 'react';
 import posts from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ProfilePageType} from '../../../redux/state';
+import {ActionsType, ProfilePageType} from '../../../redux/state';
 
 type MyPostsPropsType = {
 	postsData: ProfilePageType
-	addNewPost: () => void
-	newPostContent: string
-	trackTextarea: (value: string) => void
+	// newPostContent: string
+	// addNewPost: () => void
+	// trackTextarea: (value: string) => void
+	dispatch: (action: ActionsType) => void
 }
 
 
@@ -22,13 +23,15 @@ const MyPosts = (props: MyPostsPropsType) => {
 
 
 	const addNewPost = () => {
-		props.addNewPost();
+		// props.addNewPost();
+		props.dispatch({type: 'addNewPost'})
 	}
 
 	const onPostChange = () => {
 		const value = newPostElement.current?.value
 		if (value) {
-			props.trackTextarea(value)
+			// props.trackTextarea(value)
+			props.dispatch({type: 'trackTextarea', newText: value})
 		}
 	}
 
