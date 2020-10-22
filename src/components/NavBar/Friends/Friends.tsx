@@ -7,7 +7,6 @@ type FriendsTypeProps = {
 }
 
 const Friends = (props: FriendsTypeProps) => {
-  console.log(props)
 
   const nameOfArrayFriend = props.navBarData.map(friend => {
     return <div className={style.name} key={friend.id}>{friend.friend}</div>

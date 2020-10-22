@@ -9,7 +9,7 @@ type NavBarTypeProps = {
 }
 
 const NavBar = (props: NavBarTypeProps) => {
-  console.log(props)
+
   return (
     <nav className={navbar.nav}>
       <ul className={navbar.nav__list}>

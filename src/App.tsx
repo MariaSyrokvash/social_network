@@ -8,29 +8,33 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {stateTypeProps} from './redux/state';
+import store, {StoreType} from './redux/state';
+
 
 type AppTypeProps = {
-	state: stateTypeProps
-	addNewPost: () => void
-	trackTextarea: (value: string) => void
+	store: StoreType
 }
 
 
-const App = (props: AppTypeProps) => {
-	console.log(props)
+const App: React.FC<AppTypeProps> = (props) => {
+
+	const state = props.store.getState();
+
 	return (
 		<BrowserRouter>
 			<div className={app.app}>
 				<Header/>
 				<div className={app.container}>
-					<NavBar navBarData={props.state.navBarPage.navBarData}/>
+					<NavBar navBarData={state.navBarPage.navBarData}/>
 					<div className={app.content}>
-						<Route render={() => <Dialogs dialogsData={props.state.dialogsPage.dialogsData}
-																					messagesData={props.state.dialogsPage.messagesData}/>} path='/dialogs'/>
-						<Route render={() => <Profile postsData={props.state.profilePage}
-                                          addNewPost={props.addNewPost}
-																					trackTextarea={props.trackTextarea}
+						<Route render={() => <Dialogs dialogsData={state.dialogsPage.dialogsData}
+																					messagesData={state.dialogsPage.messagesData}
+																					newMessageBody ={state.dialogsPage.newMessageBody}
+																					dispatch={props.store.dispatch.bind(props.store)}
+						/>} path='/dialogs'/>
+						<Route render={() => <Profile postsData={state.profilePage}
+																					dispatch={props.store.dispatch.bind(props.store)}
+
 						/>} Profile
 									 path='/profile'/>
 						<Route render={() => <News/>} path='/news'/>

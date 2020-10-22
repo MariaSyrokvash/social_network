@@ -24,3 +24,50 @@
   background-size: cover;
   width: 65%;
 }
+
+
+.box {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.textarea {
+  height: 45px;
+  line-height: 45px;
+  padding: 5px;
+  margin-top: 10px;
+  padding-left: 15px;
+  background: transparent;
+  border: 1px solid #f1f1f1;
+  font-size: 14px;
+  color: #a09e9e;
+  border-radius: 10px;
+  resize: none;
+  width: 400px;
+}
+
+
+.btn {
+  position: relative;
+  background: #50b5ff;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  background-image: url("./../../assets/image/send.svg");
+  width: 20px;
+  height: 20px;
+  left: 5px;
+}
