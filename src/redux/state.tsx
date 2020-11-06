@@ -1,4 +1,7 @@
 import {v1} from 'uuid';
+import {profilePageReducer} from './profilepage-reducer';
+import {dialogsPageReducer} from './dialogspage-reducer';
+import {navBarPageReducer} from './navBarPage-reducer';
 
 const ADD_NEW_MESSAGE_BODY = `ADD_NEW_MESSAGE_BODY`;
 const SEND_MESSAGE = ' SEND_MESSAGE';
@@ -133,30 +136,38 @@ const store: StoreType = {
 	},
 	renderHandler() {console.log('state changed')},
 
-	dispatch(action) {
-		if(action.type === 'addNewPost') {
-			const newPost: MyPostsType = {
-				id: v1(),
-				message: this._state.profilePage.newPostContent,
-				likeCount: 0,
-				image: 'https://iqonic.design/themes/socialv/html/images/user/01.jpg'
-			}
-			this._state.profilePage.postsData.push(newPost);
-			this._state.profilePage.newPostContent = '';
-			this.renderHandler()
 
-		} else if (action.type === 'trackTextarea') {
-			this._state.profilePage.newPostContent = action.newText;
-			this.renderHandler()
-		} else if (action.type ===  ADD_NEW_MESSAGE_BODY) {
-			this._state.dialogsPage.newMessageBody = action.newMessageBody;
-			this.renderHandler()
-		} else if (action.type === SEND_MESSAGE) {
-			const body = this._state.dialogsPage.newMessageBody;
-			this._state.dialogsPage.newMessageBody = '';
-			this._state.dialogsPage.messagesData.push({ id: v1(), message: body});
-			this.renderHandler()
-		}
+	dispatch(action: ActionsType) {
+
+		this._state.profilePage = profilePageReducer(this._state.profilePage, action)
+		this._state.dialogsPage = dialogsPageReducer(this._state.dialogsPage, action)
+		this._state.navBarPage = navBarPageReducer(this._state.navBarPage, action)
+
+		this.renderHandler()
+
+		// if(action.type === 'addNewPost') {
+		// 	const newPost: MyPostsType = {
+		// 		id: v1(),
+		// 		message: this._state.profilePage.newPostContent,
+		// 		likeCount: 0,
+		// 		image: 'https://iqonic.design/themes/socialv/html/images/user/01.jpg'
+		// 	}
+		// 	this._state.profilePage.postsData.push(newPost);
+		// 	this._state.profilePage.newPostContent = '';
+		// 	this.renderHandler()
+		//
+		// } else if (action.type === 'trackTextarea') {
+		// 	this._state.profilePage.newPostContent = action.newText;
+		// 	this.renderHandler()
+		// } else if (action.type ===  ADD_NEW_MESSAGE_BODY) {
+		// 	this._state.dialogsPage.newMessageBody = action.newMessageBody;
+		// 	this.renderHandler()
+		// } else if (action.type === SEND_MESSAGE) {
+		// 	const body = this._state.dialogsPage.newMessageBody;
+		// 	this._state.dialogsPage.newMessageBody = '';
+		// 	this._state.dialogsPage.messagesData.push({ id: v1(), message: body});
+		// 	this.renderHandler()
+		// }
 	}
 }
 
