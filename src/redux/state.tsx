@@ -1,10 +1,8 @@
 import {v1} from 'uuid';
-import {profilePageReducer} from './profilepage-reducer';
-import {dialogsPageReducer} from './dialogspage-reducer';
+import {addNewPostActionCreator, onPostChangeActionCreator, profilePageReducer} from './profilepage-reducer';
+import {AddNewMessageBodyActionCreator, dialogsPageReducer, SendMessageBodyActionCreator} from './dialogspage-reducer';
 import {navBarPageReducer} from './navBarPage-reducer';
 
-const ADD_NEW_MESSAGE_BODY = `ADD_NEW_MESSAGE_BODY`;
-const SEND_MESSAGE = ' SEND_MESSAGE';
 
 export type MyPostsType = {
 	id: string
@@ -56,29 +54,6 @@ type AddNewMessageBodyActionType = ReturnType<typeof AddNewMessageBodyActionCrea
 type SendMessageBodyActionType = ReturnType<typeof SendMessageBodyActionCreator>
 
 export type ActionsType = AddNewPostActionType | TrackTextareaActionType | AddNewMessageBodyActionType | SendMessageBodyActionType
-
-export const addNewPostActionCreator = () => {
-	return {
-		type: 'addNewPost'
-	} as const
-}
-export const onPostChangeActionCreator = (value: string) => {
-	return {
-		type: 'trackTextarea',
-		newText: value
-	} as const
-}
-export const AddNewMessageBodyActionCreator = (value: string) => {
-	return {
-		type: ADD_NEW_MESSAGE_BODY,
-		newMessageBody: value
-	}	as const
-}
-export const SendMessageBodyActionCreator = () => {
-	return {
-		type: SEND_MESSAGE
-	}	as const
-}
 
 
 

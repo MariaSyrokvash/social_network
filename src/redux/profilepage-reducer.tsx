@@ -1,6 +1,18 @@
 import {v1} from 'uuid';
 import {MyPostsType} from './state';
 
+export const addNewPostActionCreator = () => {
+	return {
+		type: 'addNewPost'
+	} as const
+}
+export const onPostChangeActionCreator = (value: string) => {
+	return {
+		type: 'trackTextarea',
+		newText: value
+	} as const
+}
+
 export const profilePageReducer = (state: any, action: any) => {
 
 	switch (action.type) {

@@ -3,6 +3,19 @@ import {v1} from 'uuid';
 const ADD_NEW_MESSAGE_BODY = `ADD_NEW_MESSAGE_BODY`;
 const SEND_MESSAGE = ' SEND_MESSAGE';
 
+export const AddNewMessageBodyActionCreator = (value: string) => {
+	return {
+		type: ADD_NEW_MESSAGE_BODY,
+		newMessageBody: value
+	}	as const
+}
+export const SendMessageBodyActionCreator = () => {
+	return {
+		type: SEND_MESSAGE
+	}	as const
+}
+
+
 export const dialogsPageReducer = (state: any, action: any) => {
 
 	switch (action.type) {

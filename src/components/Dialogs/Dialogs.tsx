@@ -1,27 +1,26 @@
 import React, {ChangeEvent} from 'react';
 import dialogs from './Dialogs.module.css';
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./MessageItem/MessageItem";
+import DialogItem from './DialogItem/DialogItem';
+import Message from './MessageItem/MessageItem';
 import {
 	ActionsType,
-	AddNewMessageBodyActionCreator,
 	DialogsDataType,
 	MessagesDataType,
-	SendMessageBodyActionCreator
 } from '../../redux/state';
+import {AddNewMessageBodyActionCreator, SendMessageBodyActionCreator} from '../../redux/dialogspage-reducer';
 
 type DialogsPropsType = {
 	dialogsData: Array<DialogsDataType>
 	messagesData: Array<MessagesDataType>
 	newMessageBody: string
-	dispatch : (action: ActionsType) => void
+	dispatch: (action: ActionsType) => void
 }
 
 const Dialogs = (props: DialogsPropsType) => {
 
-  const dialogsElements = props.dialogsData.map(dialog => {
-    return <DialogItem id={dialog.id} name={dialog.name} key={dialog.id} image={dialog.image}/>;
-  })
+	const dialogsElements = props.dialogsData.map(dialog => {
+		return <DialogItem id={dialog.id} name={dialog.name} key={dialog.id} image={dialog.image}/>;
+	})
 
 	const messagesElements = props.messagesData.map(message => {
 		return <Message message={message.message} key={message.id}/>
@@ -55,7 +54,7 @@ const Dialogs = (props: DialogsPropsType) => {
 				<div className={dialogs.box}>
 					<div>
 						<textarea value={NewMessageBody}
-											onChange={ onChangeHandler }
+											onChange={onChangeHandler}
 											placeholder='Type your message..' className={dialogs.textarea}></textarea>
 					</div>
 					<div>
