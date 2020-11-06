@@ -7,16 +7,34 @@ export const AddNewMessageBodyActionCreator = (value: string) => {
 	return {
 		type: ADD_NEW_MESSAGE_BODY,
 		newMessageBody: value
-	}	as const
+	} as const
 }
 export const SendMessageBodyActionCreator = () => {
 	return {
 		type: SEND_MESSAGE
-	}	as const
+	} as const
+}
+
+let initialState = {
+	dialogsData: [
+		{id: v1(), name: 'Boris', image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg'},
+		{id: v1(), name: 'Denis', image: 'https://iqonic.design/themes/socialv/html/images/user/07.jpg'},
+		{id: v1(), name: 'Iosif', image: 'https://iqonic.design/themes/socialv/html/images/user/09.jpg'},
+		{id: v1(), name: 'Yekaterina', image: 'https://iqonic.design/themes/socialv/html/images/user/08.jpg'},
+		{id: v1(), name: 'Larisa', image: 'https://iqonic.design/themes/socialv/html/images/user/06.jpg'},
+	],
+	messagesData: [
+		{id: v1(), message: 'Go outside!'},
+		{id: v1(), message: 'What are you doing?'},
+		{id: v1(), message: 'There is the house where my family lives.'},
+		{id: v1(), message: 'We go jogging every Sunday!'},
+		{id: v1(), message: 'They didn’t go to school last year.'},
+	],
+	newMessageBody: ''
 }
 
 
-export const dialogsPageReducer = (state: any, action: any) => {
+export const dialogsPageReducer = (state: any = initialState, action: any) => {
 
 	switch (action.type) {
 		case ADD_NEW_MESSAGE_BODY:

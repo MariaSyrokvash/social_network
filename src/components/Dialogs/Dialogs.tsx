@@ -6,7 +6,7 @@ import {
 	ActionsType,
 	DialogsDataType,
 	MessagesDataType,
-} from '../../redux/state';
+} from '../../redux/store';
 import {AddNewMessageBodyActionCreator, SendMessageBodyActionCreator} from '../../redux/dialogspage-reducer';
 
 type DialogsPropsType = {

@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {MyPostsType} from './state';
+import {MyPostsType} from './store';
 
 export const addNewPostActionCreator = () => {
 	return {
@@ -13,7 +13,25 @@ export const onPostChangeActionCreator = (value: string) => {
 	} as const
 }
 
-export const profilePageReducer = (state: any, action: any) => {
+let initialState = {
+		postsData: [
+			{
+				id: v1(),
+				message: 'Do you know who killed Kennedy?',
+				likeCount: 3,
+				image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg'
+			},
+			{
+				id: v1(),
+				message: 'Do you have plans to weekend?',
+				likeCount: 10,
+				image: 'https://iqonic.design/themes/socialv/html/images/user/06.jpg'
+			},
+		],
+		newPostContent: ''
+	}
+
+export const profilePageReducer = (state: any = initialState, action: any) => {
 
 	switch (action.type) {
 		case 'addNewPost':
