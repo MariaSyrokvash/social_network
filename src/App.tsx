@@ -9,10 +9,11 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import store, {StoreType} from './redux/store';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 
 type AppTypeProps = {
-	store: StoreType
+	// store: StoreType
 }
 
 
@@ -27,16 +28,8 @@ const App: React.FC<AppTypeProps> = (props) => {
 				<div className={app.container}>
 					<NavBar navBarData={state.navBarPage.navBarData}/>
 					<div className={app.content}>
-						<Route render={() => <Dialogs dialogsData={state.dialogsPage.dialogsData}
-																					messagesData={state.dialogsPage.messagesData}
-																					newMessageBody ={state.dialogsPage.newMessageBody}
-																					dispatch={props.store.dispatch.bind(props.store)}
-						/>} path='/dialogs'/>
-						<Route render={() => <Profile postsData={state.profilePage}
-																					dispatch={props.store.dispatch.bind(props.store)}
-
-						/>} Profile
-									 path='/profile'/>
+						<Route render={() => <DialogsContainer store={props.store} />} path='/dialogs'/>
+						<Route render={() => <Profile store={props.store}/> }  path='/profile'/>
 						<Route render={() => <News/>} path='/news'/>
 						<Route render={() => <Music/>} path='/music'/>
 						<Route render={() => <Settings/>} path='/settings'/>

@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {MyPostsType} from './store';
+import {ActionsType, MyPostsType, ProfilePageType} from './store';
 
 export const addNewPostActionCreator = () => {
 	return {
@@ -13,7 +13,7 @@ export const onPostChangeActionCreator = (value: string) => {
 	} as const
 }
 
-let initialState = {
+let initialState: ProfilePageType = {
 		postsData: [
 			{
 				id: v1(),
@@ -31,7 +31,7 @@ let initialState = {
 		newPostContent: ''
 	}
 
-export const profilePageReducer = (state: any = initialState, action: any) => {
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
 
 	switch (action.type) {
 		case 'addNewPost':
@@ -50,19 +50,4 @@ export const profilePageReducer = (state: any = initialState, action: any) => {
 		default:
 			return state
 	}
-	// if(action.type === 'addNewPost') {
-	// 	const newPost: MyPostsType = {
-	// 		id: v1(),
-	// 		message: state.newPostContent,
-	// 		likeCount: 0,
-	// 		image: 'https://iqonic.design/themes/socialv/html/images/user/01.jpg'
-	// 	}
-	// 	state.postsData.push(newPost);
-	// 	state.newPostContent = '';
-	//
-	//
-	// } else if (action.type === 'trackTextarea') {
-	// 	state.newPostContent = action.newText;
-	//
-	// }
 }

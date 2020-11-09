@@ -1,4 +1,5 @@
 import {v1} from 'uuid';
+import {ActionsType, MessagePageType} from './store';
 
 const ADD_NEW_MESSAGE_BODY = `ADD_NEW_MESSAGE_BODY`;
 const SEND_MESSAGE = ' SEND_MESSAGE';
@@ -15,7 +16,7 @@ export const SendMessageBodyActionCreator = () => {
 	} as const
 }
 
-let initialState = {
+let initialState: MessagePageType = {
 	dialogsData: [
 		{id: v1(), name: 'Boris', image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg'},
 		{id: v1(), name: 'Denis', image: 'https://iqonic.design/themes/socialv/html/images/user/07.jpg'},
@@ -34,7 +35,7 @@ let initialState = {
 }
 
 
-export const dialogsPageReducer = (state: any = initialState, action: any) => {
+export const dialogsPageReducer = (state: MessagePageType = initialState, action: ActionsType): MessagePageType => {
 
 	switch (action.type) {
 		case ADD_NEW_MESSAGE_BODY:
@@ -48,13 +49,4 @@ export const dialogsPageReducer = (state: any = initialState, action: any) => {
 		default:
 			return state
 	}
-	// if (action.type ===  ADD_NEW_MESSAGE_BODY) {
-	//  state.newMessageBody = action.newMessageBody;
-	//
-	// } else if (action.type === SEND_MESSAGE) {
-	// 	const body = state.newMessageBody;
-	//  state.newMessageBody = '';
-	//  state.messagesData.push({ id: v1(), message: body});
-	// }
-	// return state
 }

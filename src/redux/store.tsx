@@ -119,30 +119,6 @@ const store: StoreType = {
 		this._state.navBarPage = navBarPageReducer(this._state.navBarPage, action)
 
 		this.renderHandler()
-
-		// if(action.type === 'addNewPost') {
-		// 	const newPost: MyPostsType = {
-		// 		id: v1(),
-		// 		message: this._state.profilePage.newPostContent,
-		// 		likeCount: 0,
-		// 		image: 'https://iqonic.design/themes/socialv/html/images/user/01.jpg'
-		// 	}
-		// 	this._state.profilePage.postsData.push(newPost);
-		// 	this._state.profilePage.newPostContent = '';
-		// 	this.renderHandler()
-		//
-		// } else if (action.type === 'trackTextarea') {
-		// 	this._state.profilePage.newPostContent = action.newText;
-		// 	this.renderHandler()
-		// } else if (action.type ===  ADD_NEW_MESSAGE_BODY) {
-		// 	this._state.dialogsPage.newMessageBody = action.newMessageBody;
-		// 	this.renderHandler()
-		// } else if (action.type === SEND_MESSAGE) {
-		// 	const body = this._state.dialogsPage.newMessageBody;
-		// 	this._state.dialogsPage.newMessageBody = '';
-		// 	this._state.dialogsPage.messagesData.push({ id: v1(), message: body});
-		// 	this.renderHandler()
-		// }
 	}
 }
 

@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
+import {ActionsType, NavbarPageType} from './store';
 
-let initialState = {
+let initialState: NavbarPageType = {
 	navBarData: [
 		{id: v1(), friend: 'Boris'},
 		{id: v1(), friend: 'Denis'},
@@ -9,7 +10,7 @@ let initialState = {
 		{id: v1(), friend: 'Larisa'}
 	]
 }
-export const navBarPageReducer = (state: any = initialState, action:any) => {
+export const navBarPageReducer = (state: NavbarPageType = initialState, action: ActionsType):NavbarPageType => {
 
 	return state
 }

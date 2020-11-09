@@ -1,18 +1,24 @@
 import React from 'react';
 import posts from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsType,  ProfilePageType} from '../../../redux/store';
-import {addNewPostActionCreator, onPostChangeActionCreator} from '../../../redux/profilepage-reducer';
+import {ActionsType, MyPostsType, ProfilePageType} from '../../../redux/store';
 
 type MyPostsPropsType = {
-	postsData: ProfilePageType
-	dispatch: (action: ActionsType) => void
+	// postsData: ProfilePageType
+	postsData: Array<MyPostsType>
+	// dispatch: (action: ActionsType) => void
+	trackTextarea: (value: string) => void
+	addNewPost: () => void
+	newPostContent: string
 }
 
 
 const MyPosts = (props: MyPostsPropsType) => {
 
-	const postElements = props.postsData.postsData.map(post => <Post message={post.message}
+
+	const postsData = props.postsData
+	console.log(postsData)
+	const postElements = postsData.map(post => <Post message={post.message}
 																																	 likeCount={post.likeCount}
 																																	 key={post.id}
 																																	 image={post.image}/>)
@@ -21,13 +27,13 @@ const MyPosts = (props: MyPostsPropsType) => {
 
 
 	const addNewPost = () => {
-		props.dispatch(addNewPostActionCreator())
+		props.addNewPost()
 	}
 
 	const onPostChange = () => {
 		const value = newPostElement.current?.value
 		if (value) {
-			props.dispatch(onPostChangeActionCreator(value))
+			props.trackTextarea(value)
 		}
 	}
 
@@ -39,7 +45,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 					<img className={posts.ava} src='https://iqonic.design/themes/socialv/html/images/user/1.jpg'/>
 					<textarea className={posts.textarea}
 										ref={newPostElement}
-										value={props.postsData.newPostContent}
+										value={props.newPostContent}
 										onChange={onPostChange}
 										placeholder="Write something here..."></textarea>
 					<button className={posts.add__btn} onClick={addNewPost}>Add post</button>

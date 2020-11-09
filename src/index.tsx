@@ -1,15 +1,18 @@
 import React from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-// import store from './redux/redux-store';
-import App from "./App";
-import store from './redux/redux-store';
+import App from './App';
+import {store} from './redux/redux-store';
+import StoreContext from './StoreContext';
 
 
 const rerenderApp = () => {
 	ReactDOM.render(
-		<App store={store} />,
+		<StoreContext.Provider value={store}>
+			<App/>
+		</StoreContext.Provider>
+		,
 		document.getElementById('root')
 	);
 }
