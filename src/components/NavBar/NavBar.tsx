@@ -3,12 +3,13 @@ import navbar from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
 import Friends from "./Friends/Friends";
 import {NavBarDataType} from "../../redux/store";
+import FriendsContainer from './Friends/FriendsContainer';
 
-type NavBarTypeProps = {
-  navBarData: Array<NavBarDataType>
-}
+// type NavBarTypeProps = {
+//   navBarData: Array<NavBarDataType>
+// }
 
-const NavBar = (props: NavBarTypeProps) => {
+const NavBar = () => {
 
   return (
     <nav className={navbar.nav}>
@@ -29,7 +30,7 @@ const NavBar = (props: NavBarTypeProps) => {
           <NavLink to='/settings' className={navbar.nav__link} activeClassName={navbar.active}>Settings</NavLink>
         </li>
       </ul>
-      <Friends navBarData={props.navBarData}/>
+      <FriendsContainer/>
     </nav>
   )
 }

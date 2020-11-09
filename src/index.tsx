@@ -4,16 +4,18 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import {store} from './redux/redux-store';
-import StoreContext from './StoreContext';
+import {Provider} from './StoreContext';
+import {BrowserRouter} from 'react-router-dom';
 
 
 const rerenderApp = () => {
 	ReactDOM.render(
-		<StoreContext.Provider value={store}>
-			<App/>
-		</StoreContext.Provider>
-		,
-		document.getElementById('root')
+		<BrowserRouter>
+			<Provider store={store}>
+				<App/>
+			</Provider>
+		</BrowserRouter>
+		, document.getElementById('root')
 	);
 }
 

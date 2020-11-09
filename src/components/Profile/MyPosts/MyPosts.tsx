@@ -17,7 +17,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 
 
 	const postsData = props.postsData
-	console.log(postsData)
+
 	const postElements = postsData.map(post => <Post message={post.message}
 																																	 likeCount={post.likeCount}
 																																	 key={post.id}
