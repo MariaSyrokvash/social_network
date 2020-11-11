@@ -1,22 +1,26 @@
 import React from 'react';
-import style from './Friends.module.css';
-import {NavBarDataType} from '../../../redux/store';
 import Friends from './Friends';
-import StoreContext from '../../../StoreContext';
+import {connect} from 'react-redux';
+import {NavbarPageType} from '../../../redux/store';
 
-// type FriendsTypeProps = {
-//   navBarData: Array<NavBarDataType>
-// }
-
-const FriendsContainer = () => {
-	return <StoreContext.Consumer>
-		{ (store: any) => {
-			const state = store.getState().navBarPage.navBarData
-
-			return (
-				<Friends navBarData={state}/>
-			)
-		}}
-	</StoreContext.Consumer>
+type MapStateToProps = {
+	navBarData: NavbarPageType
 }
+type mapDispatchToProps = {
+
+}
+
+
+
+const mapStateToProps = (state: any) => {
+	return {
+		navBarData: state.navBarPage.navBarData
+	}
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+	return {}
+}
+
+const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(Friends);
 export default FriendsContainer;

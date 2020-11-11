@@ -1,12 +1,10 @@
 import React from 'react';
 import posts from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsType, MyPostsType, ProfilePageType} from '../../../redux/store';
+import {MyPostsType} from '../../../redux/store';
 
 type MyPostsPropsType = {
-	// postsData: ProfilePageType
 	postsData: Array<MyPostsType>
-	// dispatch: (action: ActionsType) => void
 	trackTextarea: (value: string) => void
 	addNewPost: () => void
 	newPostContent: string
@@ -19,9 +17,9 @@ const MyPosts = (props: MyPostsPropsType) => {
 	const postsData = props.postsData
 
 	const postElements = postsData.map(post => <Post message={post.message}
-																																	 likeCount={post.likeCount}
-																																	 key={post.id}
-																																	 image={post.image}/>)
+																									 likeCount={post.likeCount}
+																									 key={post.id}
+																									 image={post.image}/>)
 
 	const newPostElement = React.createRef<HTMLTextAreaElement>();
 

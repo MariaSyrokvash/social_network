@@ -39,13 +39,18 @@ export const dialogsPageReducer = (state: MessagePageType = initialState, action
 
 	switch (action.type) {
 		case ADD_NEW_MESSAGE_BODY:
-			state.newMessageBody = action.newMessageBody;
-			return state
-		case SEND_MESSAGE:
+			return {
+				...state,
+				newMessageBody: action.newMessageBody
+			}
+		case SEND_MESSAGE: {
 			const body = state.newMessageBody;
-			state.newMessageBody = '';
-			state.messagesData.push({id: v1(), message: body});
-			return state
+			return {
+				...state,
+				newMessageBody: '',
+				messagesData: [...state.messagesData, {id: v1(), message: body}]
+			}
+		}
 		default:
 			return state
 	}

@@ -2,6 +2,7 @@ import {v1} from 'uuid';
 import {addNewPostActionCreator, onPostChangeActionCreator, profilePageReducer} from './profilepage-reducer';
 import {AddNewMessageBodyActionCreator, dialogsPageReducer, SendMessageBodyActionCreator} from './dialogspage-reducer';
 import {navBarPageReducer} from './navBarPage-reducer';
+import {followAC, setUsersAC, unFollowAC} from './users-reducer';
 
 
 export type MyPostsType = {
@@ -45,16 +46,27 @@ export type StoreType = {
 	getState: () => stateTypeProps
 	subscribe: (callback: () => void) => void
 	renderHandler: () => void
-	dispatch : (action: ActionsType) => void
+	dispatch: (action: ActionsType) => void
 }
+
 
 type AddNewPostActionType = ReturnType<typeof addNewPostActionCreator>
 type TrackTextareaActionType = ReturnType<typeof onPostChangeActionCreator>
 type AddNewMessageBodyActionType = ReturnType<typeof AddNewMessageBodyActionCreator>
 type SendMessageBodyActionType = ReturnType<typeof SendMessageBodyActionCreator>
+type followACActionType = ReturnType<typeof followAC>
+type unFollowACActionType = ReturnType<typeof unFollowAC>
+type setUsersACActionType = ReturnType<typeof setUsersAC>
 
-export type ActionsType = AddNewPostActionType | TrackTextareaActionType | AddNewMessageBodyActionType | SendMessageBodyActionType
 
+export type ActionsType =
+	AddNewPostActionType
+	| TrackTextareaActionType
+	| AddNewMessageBodyActionType
+	| SendMessageBodyActionType
+	| followACActionType
+	| unFollowACActionType
+	| setUsersACActionType
 
 
 const store: StoreType = {
@@ -109,7 +121,9 @@ const store: StoreType = {
 	subscribe(observer: () => void) {
 		this.renderHandler = observer;
 	},
-	renderHandler() {console.log('state changed')},
+	renderHandler() {
+		console.log('state changed')
+	},
 
 
 	dispatch(action: ActionsType) {
@@ -122,6 +136,6 @@ const store: StoreType = {
 	}
 }
 
-export default store;
+// export default store;
 
 

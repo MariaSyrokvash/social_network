@@ -1,38 +1,31 @@
 import React from 'react';
 import {addNewPostActionCreator, onPostChangeActionCreator} from '../../../redux/profilepage-reducer';
 import MyPosts from './MyPosts';
-import StoreContext from '../../../StoreContext';
-import {StoreType} from '../../../redux/store';
-
-// type MyPostsContainerPropsType = {
-// 	// store: StoreType
-// }
+import {connect} from 'react-redux';
+import {AppStateType} from '../../../redux/redux-store';
 
 
-const MyPostsContainer = () => {
-	return <StoreContext.Consumer>
-		{ (store: any) => {
-			const state = store.getState();
-
-			const addNewPost = () => {
-				store.dispatch(addNewPostActionCreator())
-			}
-
-			const onPostChange = (value: string) => {
-				if (value) {
-					store.dispatch(onPostChangeActionCreator(value))
-				}
-			}
-
-			return <MyPosts trackTextarea={onPostChange}
-											addNewPost={addNewPost}
-											postsData={state.profilePage.postsData}
-											newPostContent={state.profilePage.newPostContent}
-			/>
-
-		}
-		}
-	</StoreContext.Consumer>
+const mapStateToProps = (state: AppStateType) => {
+	return {
+		postsData: state.profilePage.postsData,
+		newPostContent: state.profilePage.newPostContent
+	}
 }
+
+const mapDispatchToProps = (dispatch: any) => {
+	return {
+		addNewPost: () => {
+			dispatch(addNewPostActionCreator())
+		},
+		trackTextarea: (value: string) => {
+			if (value) {
+				dispatch(onPostChangeActionCreator(value))
+			}
+		}
+	}
+}
+
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;
