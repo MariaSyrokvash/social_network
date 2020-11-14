@@ -1,6 +1,7 @@
 import React from 'react';
 import {userType} from '../../redux/users-reducer';
 import us from './Users.module.css';
+import {v1} from 'uuid';
 
 
 type UsersPropsType = {
@@ -14,6 +15,48 @@ export const Users = (props: UsersPropsType) => {
 	const users = props.users;
 	console.log(props)
 
+	if (props.users.length === 0) {
+		props.setUsers(
+			[
+				{
+					id: v1(),
+					image: 'https://iqonic.design/themes/socialv/html/images/user/15.jpg',
+					profileBgImg: 'https://iqonic.design/themes/socialv/html/images/page-img/profile-bg6.jpg',
+					followed: true,
+					fullName: 'Kate',
+					status: '@programmer',
+					location: {city: 'Minsk', country: 'Belarus'}
+				},
+				{
+					id: v1(),
+					image: 'https://iqonic.design/themes/socialv/html/images/user/14.jpg',
+					profileBgImg: 'https://iqonic.design/themes/socialv/html/images/page-img/profile-bg2.jpg',
+					followed: false,
+					fullName: 'Liza',
+					status: '@actress',
+					location: {city: 'Jakarta', country: 'Indonesia'}
+				},
+				{
+					id: v1(),
+					image: 'https://iqonic.design/themes/socialv/html/images/user/18.jpg',
+					profileBgImg: 'https://iqonic.design/themes/socialv/html/images/page-img/profile-bg3.jpg',
+					followed: false,
+					fullName: 'Bill',
+					status: '@undertaker',
+					location: {city: 'Brussels', country: 'Belgium'}
+				},
+				{
+					id: v1(),
+					image: 'https://iqonic.design/themes/socialv/html/images/user/13.jpg',
+					profileBgImg: 'https://iqonic.design/themes/socialv/html/images/page-img/profile-bg4.jpg',
+					followed: true,
+					fullName: 'Ben',
+					status: '@hairdresser',
+					location: {city: 'Ottawa', country: 'Canada'}
+				}
+			])
+	}
+
 
 	return (
 		<div className={us.box_wrap}>
@@ -24,7 +67,7 @@ export const Users = (props: UsersPropsType) => {
 			<div className={us.box}>
 				{users.map(user => {
 
-					const unFollowing = () =>  props.unFollow(user.id);
+					const unFollowing = () => props.unFollow(user.id);
 					const following = () => props.follow(user.id);
 
 					return (
