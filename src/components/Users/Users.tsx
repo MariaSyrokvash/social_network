@@ -15,20 +15,24 @@ type UsersPropsType = {
 export const Users = (props: UsersPropsType) => {
 	let users = props.users;
 
-	if (props.users.length === 0) {
-		axios.get('https://social-network.samuraijs.com/api/1.0/users')
-			.then(response => {
-				users = response.data.items
-				props.setUsers(users);
-			})
+	const getUsers = () => {
+		if (props.users.length === 0) {
+			axios.get('https://social-network.samuraijs.com/api/1.0/users')
+				.then(response => {
+					users = response.data.items
+					props.setUsers(users);
+				})
+		}
 	}
 
 	return (
 		<div className={us.box_wrap}>
+
 			<div className={us.titleBox}>
 				<h2 className={us.title}>Friend Lists</h2>
 				<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg7.jpg' className={us.box_bg}/>
 			</div>
+			<button onClick={getUsers}>get users</button>
 			<div className={us.box}>
 				{
 					props.users.map(user => {
