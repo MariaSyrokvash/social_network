@@ -5,7 +5,7 @@ import axios from 'axios';
 import defaultImg from './../../assets/image/usersPage/default_user.png';
 
 
-type UsersPropsType = {
+export type UsersPropsType = {
 	users: Array<userType>
 	follow: (userID: number) => void
 	unFollow: (userID: number) => void
