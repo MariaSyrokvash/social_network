@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import us from './Users.module.css';
 import axios from 'axios';
 import defaultImg from './../../assets/image/usersPage/default_user.png';
+import {UsersPropsType} from './Users';
 
 
-class UsersClass extends Component<any, any> {
+class UsersClass extends Component<UsersPropsType, {}> {
 
-	componentDidMount() {
+	componentDidMount(): void {
 		axios.get('https://social-network.samuraijs.com/api/1.0/users')
 			.then(response => {
 				this.props.setUsers(response.data.items);
@@ -23,7 +24,7 @@ class UsersClass extends Component<any, any> {
 				</div>
 				<div className={us.box}>
 					{
-						// @ts-ignore
+
 						this.props.users.map(user => {
 
 							const unFollowing = () => this.props.unFollow(user.id);
