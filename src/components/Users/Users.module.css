@@ -77,15 +77,16 @@
   border-radius: 5px;
   width: 100%;
   height: auto;
+  opacity: 0.8;
 }
 
 .avatar {
-  width: 100px;
+  width: 80px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, .1);
   height: auto;
   position: absolute;
-  top: 22%;
+  top: 30%;
 
 }
 
@@ -96,6 +97,10 @@
   line-height: 1.5;
   font-size: 19px;
   color: #3f414d;
+}
+
+.name:first-letter {
+  text-transform:capitalize;
 }
 
 .wrapper {
@@ -128,6 +133,7 @@
 
 .box_bg {
   position: relative;
+  opacity: 0.7;
   border-radius: 5px;
   width: 100%;
 }
