@@ -2,7 +2,7 @@ Arguments:
   /usr/local/bin/node /usr/local/bin/yarn add gh-pages --dev
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/maria/it-incubator/git/social_network/node_modules/.bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users_old/maria/it-incubator/git/social_network/node_modules/.bin
 
 Yarn version: 
   1.22.10
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/maria/it-incubator/git/social_network/package.json: Unexpected token ' in JSON at position 47
+  SyntaxError: /Users_old/maria/it-incubator/git/social_network/package.json: Unexpected token ' in JSON at position 47
       at JSON.parse (<anonymous>)
       at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
       at Generator.next (<anonymous>)

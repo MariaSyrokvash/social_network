@@ -1,37 +1,108 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {currentPageAC, followAC, setUsersAC, totalUsersCountAC, unFollowAC} from '../../redux/users-reducer';
-import {ActionsType} from '../../redux/store';
+import {
+	follow, setCurrentPage, setToggle, setTotalUsersCount,
+	setUsers,
+	unFollow,
+	userType
+} from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
-import UsersClass from './UsersClass';
+import axios from 'axios';
+import Users from './Users';
+import Loader from '../common/Loader/Loader';
+
+export type UsersPropsType = {
+	users: Array<userType>
+	pageSize: number
+	totalUsersCount: number
+	currentPage: number
+	follow: (userID: number) => void
+	unFollow: (userID: number) => void
+	setUsers: (users: Array<userType>) => void
+	setCurrentPage: (page: number) => void
+	setTotalUsersCount: (totalUsers: number) => void
+	inProgress: boolean
+	setToggle: (loader: boolean) => void
+}
+
+
+class UsersContainer extends Component<UsersPropsType, {}> {
+
+	componentDidMount(): void {
+		this.props.setToggle(true)
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+			.then(response => {
+				this.props.setToggle(false)
+				this.props.setUsers(response.data.items);
+				this.props.setTotalUsersCount(response.data.totalCount);
+			})
+	}
+
+	onPageChanged = (page: number) => {
+		this.props.setCurrentPage(page);
+		this.props.setToggle(true)
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+			.then(response => {
+				this.props.setToggle(false)
+				this.props.setUsers(response.data.items);
+			})
+	}
+
+	render() {
+		return <>
+			{this.props.inProgress ? <Loader/> : null}
+			<Users
+				totalUsersCount={this.props.totalUsersCount}
+				pageSize={this.props.pageSize}
+				currentPage={this.props.currentPage}
+				onPageChanged={this.onPageChanged}
+				users={this.props.users}
+				follow={this.props.follow}
+				unFollow={this.props.unFollow}
+			/>
+		</>
+	}
+}
 
 const mapStateToProps = (state: AppStateType) => {
 	return {
 		users: state.usersPage.users,
 		pageSize: state.usersPage.pageSize,
 		totalUsersCount: state.usersPage.totalUsersCount,
-		currentPage: state.usersPage.currentPage
+		currentPage: state.usersPage.currentPage,
+		inProgress: state.usersPage.inProgress
 	}
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
-	return {
-		follow: (userID: number) => {
-				dispatch(followAC(userID))
-			},
-		unFollow: (userID: number) => {
-			 	dispatch(unFollowAC(userID))
-		},
-			setUsers: (users: any) => {
-			dispatch(setUsersAC(users))
-		},
-		setCurrentPage: (currentPage: number) => {
-			dispatch(currentPageAC(currentPage))
-		},
-		setTotalUsersCount: (totalCount: number) => {
-			dispatch(totalUsersCountAC(totalCount))
-		}
-	}
-}
+// const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
+// 	return {
+// 		follow: (userID: number) => {
+// 			dispatch(followAC(userID))
+// 		},
+// 		unFollow: (userID: number) => {
+// 			dispatch(unFollowAC(userID))
+// 		},
+// 		setUsers: (users: any) => {
+// 			dispatch(setUsersAC(users))
+// 		},
+// 		setCurrentPage: (currentPage: number) => {
+// 			dispatch(currentPageAC(currentPage))
+// 		},
+// 		setTotalUsersCount: (totalCount: number) => {
+// 			dispatch(totalUsersCountAC(totalCount))
+// 		},
+// 		setToggle: (loader: boolean) => {
+// 			dispatch(toggleLoaderAC(loader))
+// 		}
+// 	}
+// }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClass)
+export default connect(mapStateToProps, {
+		follow,
+		unFollow,
+		setUsers,
+		setCurrentPage,
+		setTotalUsersCount,
+		setToggle
+	}
+)(UsersContainer)

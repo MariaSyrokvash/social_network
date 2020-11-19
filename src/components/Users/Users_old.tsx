@@ -1,53 +1,42 @@
 import React from 'react';
 import us from './Users.module.css';
-import defaultImg from '../../assets/image/usersPage/default_user.png';
-import {userType} from '../../redux/users-reducer';
+import axios from 'axios';
+import defaultImg from './../../assets/image/usersPage/default_user.png';
+import {UsersPropsType} from './UsersContainer';
 
 
-type UsersFuncPropsType = {
-	users: Array<userType>
-	pageSize: number
-	totalUsersCount: number
-	currentPage: number
-	follow: (userID: number) => void
-	unFollow: (userID: number) => void
-	onPageChanged: (page: number) => void
-}
 
+export const Users_old = (props: UsersPropsType) => {
+	let users = props.users;
 
-const Users = (props: UsersFuncPropsType) => {
-
-	const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-
-	const pages = [];
-
-	for (let i = 1; i <= pagesCount; i++) {
-		pages.push(i)
+	const getUsers = () => {
+		if (props.users.length === 0) {
+			axios.get('https://social-network.samuraijs.com/api/1.0/users')
+				.then(response => {
+					users = response.data.items
+					props.setUsers(users);
+				})
+		}
 	}
 
 	return (
 		<div className={us.box_wrap}>
-			<div className={us.pagination_wrap}>
-				{pages.map((page, ind) => {
-					return <span onClick={() => {
-						props.onPageChanged(page)
-					}} key={ind} className={props.currentPage === page ? us.selected : us.page}>{page}</span>
-				})}
-			</div>
+
 			<div className={us.titleBox}>
 				<h2 className={us.title}>Friend Lists</h2>
 				<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg7.jpg' className={us.box_bg}/>
 			</div>
+			<button onClick={getUsers}>get users</button>
 			<div className={us.box}>
-				{props.users.map(user => {
+				{
+					props.users.map(user => {
 
 					const unFollowing = () => props.unFollow(user.id);
 					const following = () => props.follow(user.id);
 
 					return (
 						<div key={user.id} className={us.container}>
-							<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg8.jpg'
-									 className={us.bg}/>
+							<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg8.jpg' className={us.bg}/>
 							<div className={us.wrapper}>
 								<img src={user.photos.small === null ? defaultImg : user.photos.small} className={us.avatar}/>
 								<div className={us.inner}>
@@ -70,4 +59,3 @@ const Users = (props: UsersFuncPropsType) => {
 	)
 }
 
-export default Users;

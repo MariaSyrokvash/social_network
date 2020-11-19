@@ -2,7 +2,13 @@ import {v1} from 'uuid';
 import {addNewPostActionCreator, onPostChangeActionCreator, profilePageReducer} from './profilepage-reducer';
 import {AddNewMessageBodyActionCreator, dialogsPageReducer, SendMessageBodyActionCreator} from './dialogspage-reducer';
 import {navBarPageReducer} from './navBarPage-reducer';
-import {currentPageAC, followAC, setUsersAC, totalUsersCountAC, unFollowAC} from './users-reducer';
+import {
+	follow,
+	setCurrentPage, setToggle,
+	setTotalUsersCount,
+	setUsers,
+	unFollow
+} from './users-reducer';
 
 
 export type MyPostsType = {
@@ -54,11 +60,12 @@ type AddNewPostActionType = ReturnType<typeof addNewPostActionCreator>
 type TrackTextareaActionType = ReturnType<typeof onPostChangeActionCreator>
 type AddNewMessageBodyActionType = ReturnType<typeof AddNewMessageBodyActionCreator>
 type SendMessageBodyActionType = ReturnType<typeof SendMessageBodyActionCreator>
-type followACActionType = ReturnType<typeof followAC>
-type unFollowACActionType = ReturnType<typeof unFollowAC>
-type setUsersACActionType = ReturnType<typeof setUsersAC>
-type currentPageActionType = ReturnType<typeof currentPageAC>
-type totalUsersCountActionType = ReturnType<typeof totalUsersCountAC>
+type followACActionType = ReturnType<typeof follow>
+type unFollowACActionType = ReturnType<typeof unFollow>
+type setUsersACActionType = ReturnType<typeof setUsers>
+type currentPageActionType = ReturnType<typeof setCurrentPage>
+type totalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+type toggleLoaderActionType = ReturnType<typeof setToggle>
 
 export type ActionsType =
 	AddNewPostActionType
@@ -70,6 +77,7 @@ export type ActionsType =
 	| setUsersACActionType
 	| currentPageActionType
 	| totalUsersCountActionType
+	| toggleLoaderActionType
 
 
 const store: StoreType = {
