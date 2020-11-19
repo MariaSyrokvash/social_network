@@ -8,15 +8,40 @@ import {UsersPropsType} from './Users';
 class UsersClass extends Component<UsersPropsType, {}> {
 
 	componentDidMount(): void {
-		axios.get('https://social-network.samuraijs.com/api/1.0/users')
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+			.then(response => {
+				this.props.setUsers(response.data.items);
+				this.props.setTotalUsersCount(response.data.totalCount);
+			})
+	}
+
+	onPageChanged = (page: number) => {
+		this.props.setCurrentPage(page);
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
 			.then(response => {
 				this.props.setUsers(response.data.items);
 			})
 	}
 
 	render() {
+
+		const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+		const pages = [];
+
+		for (let i = 1; i <= pagesCount; i++) {
+			pages.push(i)
+		}
+
 		return (
 			<div className={us.box_wrap}>
+				<div className={us.pagination_wrap}>
+					{pages.map((page, ind) => {
+						return <span onClick={() => {
+							this.onPageChanged(page)
+						}} key={ind} className={this.props.currentPage === page ? us.selected : us.page}>{page}</span>
+					})}
+				</div>
 
 				<div className={us.titleBox}>
 					<h2 className={us.title}>Friend Lists</h2>

@@ -7,9 +7,14 @@ import defaultImg from './../../assets/image/usersPage/default_user.png';
 
 export type UsersPropsType = {
 	users: Array<userType>
+	pageSize: number
+	totalUsersCount: number
+	currentPage: number
 	follow: (userID: number) => void
 	unFollow: (userID: number) => void
 	setUsers: (users: Array<userType>) => void
+	setCurrentPage: (page: number) => void
+	setTotalUsersCount: (totalUsers: number) => void
 }
 
 export const Users = (props: UsersPropsType) => {

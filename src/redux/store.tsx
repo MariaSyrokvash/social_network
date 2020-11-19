@@ -2,7 +2,7 @@ import {v1} from 'uuid';
 import {addNewPostActionCreator, onPostChangeActionCreator, profilePageReducer} from './profilepage-reducer';
 import {AddNewMessageBodyActionCreator, dialogsPageReducer, SendMessageBodyActionCreator} from './dialogspage-reducer';
 import {navBarPageReducer} from './navBarPage-reducer';
-import {followAC, setUsersAC, unFollowAC} from './users-reducer';
+import {currentPageAC, followAC, setUsersAC, totalUsersCountAC, unFollowAC} from './users-reducer';
 
 
 export type MyPostsType = {
@@ -57,7 +57,8 @@ type SendMessageBodyActionType = ReturnType<typeof SendMessageBodyActionCreator>
 type followACActionType = ReturnType<typeof followAC>
 type unFollowACActionType = ReturnType<typeof unFollowAC>
 type setUsersACActionType = ReturnType<typeof setUsersAC>
-
+type currentPageActionType = ReturnType<typeof currentPageAC>
+type totalUsersCountActionType = ReturnType<typeof totalUsersCountAC>
 
 export type ActionsType =
 	AddNewPostActionType
@@ -67,6 +68,8 @@ export type ActionsType =
 	| followACActionType
 	| unFollowACActionType
 	| setUsersACActionType
+	| currentPageActionType
+	| totalUsersCountActionType
 
 
 const store: StoreType = {
