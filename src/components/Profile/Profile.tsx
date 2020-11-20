@@ -1,14 +1,19 @@
 import React from 'react';
 import profile from './Profile.module.css';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ProfileInfo, {ProfileInfoType} from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
+
+export type ProfilePropsType = {
+  profile: ProfileInfoType
+  setUserProfile: (profile: ProfileInfoType) => void
+}
 
 const Profile = (props: any) => {
   console.log(props)
   return (
     <div className={profile.profile}>
-      <ProfileInfo />
+      <ProfileInfo profile={props.profile}/>
       <MyPostsContainer />
     </div>
   )

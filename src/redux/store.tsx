@@ -53,6 +53,8 @@ export type stateTypeProps = {
 	dialogsPage: MessagePageType
 	navBarPage: NavbarPageType
 }
+
+
 // export type StoreType = {
 // 	_state: stateTypeProps
 // 	getState: () => stateTypeProps

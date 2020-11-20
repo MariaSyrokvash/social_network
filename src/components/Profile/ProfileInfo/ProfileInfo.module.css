@@ -36,6 +36,10 @@
   color: #3f414d;
 }
 
+.name:first-letter {
+  text-transform: uppercase;
+}
+
 .info {
   position: absolute;
   bottom: 40px;
