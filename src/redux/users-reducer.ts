@@ -1,11 +1,25 @@
-import {ActionsType} from './store';
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_LOADER = 'TOGGLE_LOADER'
+
+type followACActionType = ReturnType<typeof follow>
+type unFollowACActionType = ReturnType<typeof unFollow>
+type setUsersACActionType = ReturnType<typeof setUsers>
+type currentPageActionType = ReturnType<typeof setCurrentPage>
+type totalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+type toggleLoaderActionType = ReturnType<typeof setToggle>
+
+
+type ActionType =
+	followACActionType
+	| unFollowACActionType
+	| setUsersACActionType
+	| currentPageActionType
+	| totalUsersCountActionType
+	| toggleLoaderActionType
 
 const initialState: initialUsersStateType = {
 	users: [],
@@ -31,21 +45,24 @@ export type userType = {
 	uniqueUrlName: null
 	photos: PhotoType
 	status: null
-	followed: false
+	followed: boolean
 }
 
-export const setUsers = (users: Array<userType>) => ({type: SET_USERS, users}) as const
-export const follow = (userID: number) => ({type: FOLLOW, userID}) as const
-export const unFollow = (userID: number) => ({type: UNFOLLOW, userID}) as const
-export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
-export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount}) as const
-export const setToggle = (loader: boolean) => ({type: TOGGLE_LOADER, loader}) as const
+export const setUsers = (users: Array<userType>) => ({type: SET_USERS, users} as const)
+export const follow = (userID: number) => ({type: FOLLOW, userID} as const)
+export const unFollow = (userID: number) => ({type: UNFOLLOW, userID} as const)
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersCount = (totalUsersCount: number) => ({
+	type: SET_TOTAL_USERS_COUNT,
+	count: totalUsersCount
+} as const)
+export const setToggle = (loader: boolean) => ({type: TOGGLE_LOADER, loader} as const)
 
-export const usersReducer = (state: initialUsersStateType = initialState, action: ActionsType): initialUsersStateType => {
+export const usersReducer = (state: initialUsersStateType = initialState, action: ActionType): initialUsersStateType => {
 
 	switch (action.type) {
 		case FOLLOW:
-			return <initialUsersStateType>{
+			return {
 				...state,
 				users: state.users.map((user) => {
 					if (user.id === action.userID) {
@@ -71,13 +88,13 @@ export const usersReducer = (state: initialUsersStateType = initialState, action
 			}
 		}
 		case SET_CURRENT_PAGE: {
-			return { ...state, currentPage: action.currentPage}
+			return {...state, currentPage: action.currentPage}
 		}
 		case SET_TOTAL_USERS_COUNT: {
-			return { ...state, totalUsersCount: action.count}
+			return {...state, totalUsersCount: action.count}
 		}
 		case TOGGLE_LOADER: {
-			return { ...state, inProgress: action.loader}
+			return {...state, inProgress: action.loader}
 		}
 		default:
 			return state

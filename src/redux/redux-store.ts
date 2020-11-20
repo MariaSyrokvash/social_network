@@ -14,4 +14,4 @@ const reducers: any = combineReducers({
 });
 
 
-export const store: any = createStore(reducers)
+export const store: AppStateType = createStore(reducers)

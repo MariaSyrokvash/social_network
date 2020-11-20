@@ -1,13 +1,20 @@
 import {v1} from 'uuid';
-import {ActionsType, MessagePageType} from './store';
+import { MessagePageType} from './store';
 
 const ADD_NEW_MESSAGE_BODY = `ADD_NEW_MESSAGE_BODY`;
 const SEND_MESSAGE = ' SEND_MESSAGE';
 
-export const AddNewMessageBodyActionCreator = (value: string) => {
+type AddNewMessageBodyActionType = ReturnType<typeof AddNewMessageBodyActionCreator>
+type SendMessageBodyActionType = ReturnType<typeof SendMessageBodyActionCreator>
+
+type ActionType =
+	 AddNewMessageBodyActionType
+	| SendMessageBodyActionType
+
+export const AddNewMessageBodyActionCreator = (newMessageBody: string) => {
 	return {
 		type: ADD_NEW_MESSAGE_BODY,
-		newMessageBody: value
+		newMessageBody: newMessageBody
 	} as const
 }
 export const SendMessageBodyActionCreator = () => {
@@ -35,7 +42,7 @@ let initialState: MessagePageType = {
 }
 
 
-export const dialogsPageReducer = (state: MessagePageType = initialState, action: ActionsType): MessagePageType => {
+export const dialogsPageReducer = (state: MessagePageType = initialState, action: ActionType): MessagePageType => {
 
 	switch (action.type) {
 		case ADD_NEW_MESSAGE_BODY:

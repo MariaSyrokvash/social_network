@@ -4,7 +4,8 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 
-const Profile = () => {
+const Profile = (props: any) => {
+  console.log(props)
   return (
     <div className={profile.profile}>
       <ProfileInfo />
