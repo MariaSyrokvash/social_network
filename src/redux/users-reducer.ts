@@ -23,7 +23,7 @@ type ActionType =
 
 const initialState: initialUsersStateType = {
 	users: [],
-	pageSize: 5,
+	pageSize: 50,
 	totalUsersCount: 0,
 	currentPage: 1,
 	inProgress: false

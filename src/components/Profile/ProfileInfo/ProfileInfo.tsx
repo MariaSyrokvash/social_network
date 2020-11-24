@@ -5,29 +5,29 @@ import Analitics from "./Analitics/Analitics";
 import Loader from '../../common/Loader/Loader';
 
 export type ProfileInfoType = {
-  aboutMe: string
+  aboutMe: string | null
   contacts: ContactsType
   fullName: string
   lookingForAJob: boolean
-  lookingForAJobDescription: string
+  lookingForAJobDescription: string | null
   photos: PhotoType
   userId: number
 }
 
-type PhotoType = {
-  small: string
-  large: string
+export type PhotoType = {
+  small: string | null
+  large: string | null
 }
 
-type ContactsType = {
-  facebook: string
-  github: string
-  instagram: string
-  mainLink: null
-  twitter: string
-  vk: string
-  website: string
-  youtube: null
+export type ContactsType = {
+  facebook: string | null
+  github: string | null
+  instagram: string | null
+  mainLink: null | null
+  twitter: string | null
+  vk: string | null
+  website: string | null
+  youtube: string | null
 }
 
 

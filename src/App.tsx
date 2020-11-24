@@ -20,7 +20,7 @@ const App: React.FC = () => {
 					<NavBar />
 					<div className={app.content}>
 						<Route render={() => <DialogsContainer />} path='/dialogs'/>
-						<Route render={() => <ProfileContainer /> }  path='/profile'/>
+						<Route render={() => <ProfileContainer /> }  path='/profile/:userID?'/>
 						<Route render={() => <UsersContainer /> }  path='/users'/>
 						<Route render={() => <News/>} path='/news'/>
 						<Route render={() => <Music/>} path='/music'/>
