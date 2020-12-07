@@ -7,9 +7,9 @@ import {
 	userType
 } from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
-import axios from 'axios';
 import Users from './Users';
 import Loader from '../common/Loader/Loader';
+import {userAPI} from '../../api/api';
 
 export type UsersPropsType = {
 	users: Array<userType>
@@ -30,21 +30,22 @@ class UsersContainer extends Component<UsersPropsType, {}> {
 
 	componentDidMount(): void {
 		this.props.setToggle(true)
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-			.then(response => {
+
+		userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
 				this.props.setToggle(false)
-				this.props.setUsers(response.data.items);
-				this.props.setTotalUsersCount(response.data.totalCount);
+				this.props.setUsers(data.items);
+				this.props.setTotalUsersCount(data.totalCount);
 			})
 	}
 
 	onPageChanged = (page: number) => {
 		this.props.setCurrentPage(page);
 		this.props.setToggle(true)
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
-			.then(response => {
+
+		userAPI.getUsers(page, this.props.pageSize)
+			.then(data => {
 				this.props.setToggle(false)
-				this.props.setUsers(response.data.items);
+				this.props.setUsers(data.items);
 			})
 	}
 

@@ -3,6 +3,7 @@ import us from './Users.module.css';
 import defaultImg from '../../assets/image/usersPage/default_user.png';
 import {userType} from '../../redux/users-reducer';
 import {NavLink} from 'react-router-dom';
+import {userAPI} from '../../api/api';
 
 
 type UsersFuncPropsType = {
@@ -26,6 +27,7 @@ const Users = (props: UsersFuncPropsType) => {
 		pages.push(i)
 	}
 
+
 	return (
 		<div className={us.box_wrap}>
 			<div className={us.pagination_wrap}>
@@ -42,8 +44,23 @@ const Users = (props: UsersFuncPropsType) => {
 			<div className={us.box}>
 				{props.users.map(user => {
 
-					const unFollowing = () => props.unFollow(user.id);
-					const following = () => props.follow(user.id);
+					const unFollowing = () => {
+						userAPI.unFollowing(user.id)
+							.then(data => {
+								if (data.resultCode === 0) {
+									props.unFollow(user.id)
+								}
+							})
+
+					}
+					const following = () => {
+						userAPI.following(user.id)
+							.then(data => {
+								if (data.resultCode === 0) {
+									props.follow(user.id);
+								}
+							})
+					}
 
 					return (
 						<div key={user.id} className={us.container}>
