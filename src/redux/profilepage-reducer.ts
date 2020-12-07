@@ -1,5 +1,6 @@
 import {v1} from 'uuid';
 import { MyPostsType, ProfilePageType} from './store';
+import {profileAPI} from '../api/api';
 
 const ADD_NEW_POST = 'addNewPost'
 const TRACK_TEXTAREA = 'trackTextarea'
@@ -32,6 +33,14 @@ export const setUserProfile = (profile: any) => {
 		profile: profile
 	} as const
 }
+
+export const getUserProfile = (userID: number) => (dispatch: any) => {
+	return 		profileAPI.getUserProfile(userID)
+		.then(data => {
+			dispatch(setUserProfile(data));
+		})
+}
+
 
 
 let initialState: ProfilePageType = {

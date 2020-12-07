@@ -131,6 +131,10 @@
   background-color: #007bff;
 }
 
+.follow_btn:disabled{
+  opacity: 0.3;
+}
+
 .box_bg {
   position: relative;
   opacity: 0.7;

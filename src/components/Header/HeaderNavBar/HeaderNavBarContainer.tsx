@@ -1,19 +1,12 @@
 import React from 'react';
 import HeaderNavBar from './HeaderNavBar';
 import {connect} from 'react-redux';
-import {setAuthUserDataAC} from '../../../redux/auth-reducer';
-import {authAPI} from '../../../api/api';
+import {getAuthUserData} from '../../../redux/auth-reducer';
 
 class HeaderNavBarContainer extends React.Component<any, any> {
 
 	componentDidMount() {
-		authAPI.getAuthMe()
-			.then(data => {
-				if (data.resultCode === 0) {
-					const {id, email, login} = data.data;
-					this.props.setAuthUserDataAC(id, email, login);
-				}
-			})
+		this.props.getAuthUserData()
 	}
 
 	render() {
@@ -26,4 +19,4 @@ const mapStateToProps = (state: any) => ({
 	login: state.auth.login,
 })
 
-export default connect(mapStateToProps, {setAuthUserDataAC})(HeaderNavBarContainer);
+export default connect(mapStateToProps, {getAuthUserData})(HeaderNavBarContainer);

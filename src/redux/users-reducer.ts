@@ -1,9 +1,12 @@
+import {userAPI} from '../api/api';
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_LOADER = 'TOGGLE_LOADER'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 type followACActionType = ReturnType<typeof follow>
 type unFollowACActionType = ReturnType<typeof unFollow>
@@ -11,6 +14,7 @@ type setUsersACActionType = ReturnType<typeof setUsers>
 type currentPageActionType = ReturnType<typeof setCurrentPage>
 type totalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 type toggleLoaderActionType = ReturnType<typeof setToggle>
+type toggleFollowingProgressActionType = ReturnType<typeof setToggleFollowingProgress>
 
 
 type ActionType =
@@ -20,13 +24,15 @@ type ActionType =
 	| currentPageActionType
 	| totalUsersCountActionType
 	| toggleLoaderActionType
+	| toggleFollowingProgressActionType
 
 const initialState: initialUsersStateType = {
 	users: [],
 	pageSize: 50,
 	totalUsersCount: 0,
 	currentPage: 1,
-	inProgress: false
+	inProgress: false,
+	followingInProgress: []
 }
 export type initialUsersStateType = {
 	users: Array<userType>
@@ -34,6 +40,7 @@ export type initialUsersStateType = {
 	totalUsersCount: number
 	currentPage: number
 	inProgress: boolean
+	followingInProgress: Array<number>
 }
 export type PhotoType = {
 	small: string | null
@@ -57,7 +64,11 @@ export const setTotalUsersCount = (totalUsersCount: number) => ({
 	count: totalUsersCount
 } as const)
 export const setToggle = (loader: boolean) => ({type: TOGGLE_LOADER, loader} as const)
-
+export const setToggleFollowingProgress = (following: boolean, userID: number) => ({
+	type: TOGGLE_IS_FOLLOWING_PROGRESS,
+	following,
+	userID
+} as const)
 export const usersReducer = (state: initialUsersStateType = initialState, action: ActionType): initialUsersStateType => {
 
 	switch (action.type) {
@@ -96,7 +107,59 @@ export const usersReducer = (state: initialUsersStateType = initialState, action
 		case TOGGLE_LOADER: {
 			return {...state, inProgress: action.loader}
 		}
+		case TOGGLE_IS_FOLLOWING_PROGRESS: {
+			return {
+				...state,
+
+				followingInProgress:
+					action.following
+						? [...state.followingInProgress, action.userID]
+						: state.followingInProgress.filter(id => id !== action.userID)
+
+			}
+		}
 		default:
 			return state
+	}
+}
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+	return (dispatch: any) => {
+		dispatch(setToggle(true))
+
+		userAPI.getUsers(currentPage, pageSize).then(data => {
+			dispatch(setToggle(false))
+			dispatch(setUsers(data.items))
+			dispatch(setTotalUsersCount(data.totalCount))
+		})
+	}
+}
+
+export const followThunkCreator = (userID: number) => {
+	return (dispatch: any) => {
+		dispatch(setToggleFollowingProgress(true, userID))
+
+		userAPI.following(userID)
+			.then(data => {
+				if (data.resultCode === 0) {
+					dispatch(follow(userID));
+				}
+				dispatch(setToggleFollowingProgress(false, userID))
+			})
+	}
+}
+
+export const unFollowThunkCreator = (userID: number) => {
+	return (dispatch: any) => {
+		dispatch(setToggleFollowingProgress(true, userID))
+
+		userAPI.following(userID)
+			.then(data => {
+				if (data.resultCode === 0) {
+					dispatch(unFollow(userID));
+				}
+				dispatch(setToggleFollowingProgress(false, userID))
+			})
 	}
 }

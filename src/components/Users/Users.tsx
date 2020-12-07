@@ -1,7 +1,7 @@
 import React from 'react';
 import us from './Users.module.css';
 import defaultImg from '../../assets/image/usersPage/default_user.png';
-import {userType} from '../../redux/users-reducer';
+import {followThunkCreator, unFollowThunkCreator, userType} from '../../redux/users-reducer';
 import {NavLink} from 'react-router-dom';
 import {userAPI} from '../../api/api';
 
@@ -14,6 +14,10 @@ type UsersFuncPropsType = {
 	follow: (userID: number) => void
 	unFollow: (userID: number) => void
 	onPageChanged: (page: number) => void
+	followingInProgress: Array<number>
+	setToggleFollowingProgress: (following: boolean, userID: number) => void
+	followThunkCreator: (userID: number) => void
+	unFollowThunkCreator: (userID: number) => void
 }
 
 
@@ -45,21 +49,10 @@ const Users = (props: UsersFuncPropsType) => {
 				{props.users.map(user => {
 
 					const unFollowing = () => {
-						userAPI.unFollowing(user.id)
-							.then(data => {
-								if (data.resultCode === 0) {
-									props.unFollow(user.id)
-								}
-							})
-
+						props.unFollowThunkCreator(user.id)
 					}
 					const following = () => {
-						userAPI.following(user.id)
-							.then(data => {
-								if (data.resultCode === 0) {
-									props.follow(user.id);
-								}
-							})
+						props.followThunkCreator(user.id)
 					}
 
 					return (
@@ -76,8 +69,10 @@ const Users = (props: UsersFuncPropsType) => {
 									<p>{user.status}</p>
 									{
 										user.followed ?
-											<button onClick={unFollowing} className={us.follow_btn}>Unfollow</button> :
-											<button onClick={following} className={us.follow_btn}>Follow</button>
+											<button disabled={props.followingInProgress.some(id => id === user.id)} onClick={unFollowing}
+															className={us.follow_btn}>Unfollow</button> :
+											<button disabled={props.followingInProgress.some(id => id === user.id)} onClick={following}
+															className={us.follow_btn}>Follow</button>
 									}
 								</div>
 							</div>

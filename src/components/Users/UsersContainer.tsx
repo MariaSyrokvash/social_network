@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
-	follow, setCurrentPage, setToggle, setTotalUsersCount,
-	setUsers,
-	unFollow,
+	follow, followThunkCreator, getUsersThunkCreator, setCurrentPage, setToggleFollowingProgress,
+	unFollow, unFollowThunkCreator,
 	userType
 } from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
 import Loader from '../common/Loader/Loader';
-import {userAPI} from '../../api/api';
 
 export type UsersPropsType = {
 	users: Array<userType>
@@ -18,35 +16,33 @@ export type UsersPropsType = {
 	currentPage: number
 	follow: (userID: number) => void
 	unFollow: (userID: number) => void
-	setUsers: (users: Array<userType>) => void
 	setCurrentPage: (page: number) => void
-	setTotalUsersCount: (totalUsers: number) => void
 	inProgress: boolean
-	setToggle: (loader: boolean) => void
+	followingInProgress: Array<number>
+	setToggleFollowingProgress: (following: boolean, userID: number) => void
+	getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+	followThunkCreator: (userID: number) => void
+	unFollowThunkCreator: (userID: number) => void
 }
 
 
 class UsersContainer extends Component<UsersPropsType, {}> {
 
 	componentDidMount(): void {
-		this.props.setToggle(true)
-
-		userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-				this.props.setToggle(false)
-				this.props.setUsers(data.items);
-				this.props.setTotalUsersCount(data.totalCount);
-			})
+		this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
 	}
 
 	onPageChanged = (page: number) => {
-		this.props.setCurrentPage(page);
-		this.props.setToggle(true)
+		this.props.getUsersThunkCreator(page, this.props.pageSize)
 
-		userAPI.getUsers(page, this.props.pageSize)
-			.then(data => {
-				this.props.setToggle(false)
-				this.props.setUsers(data.items);
-			})
+		// this.props.setCurrentPage(page);
+		// this.props.setToggle(true)
+		//
+		// userAPI.getUsers(page, this.props.pageSize)
+		// 	.then(data => {
+		// 		this.props.setToggle(false)
+		// 		this.props.setUsers(data.items);
+		// 	})
 	}
 
 	render() {
@@ -60,6 +56,10 @@ class UsersContainer extends Component<UsersPropsType, {}> {
 				users={this.props.users}
 				follow={this.props.follow}
 				unFollow={this.props.unFollow}
+				followingInProgress={this.props.followingInProgress}
+				setToggleFollowingProgress={this.props.setToggleFollowingProgress}
+				followThunkCreator={this.props.followThunkCreator}
+				unFollowThunkCreator={this.props.unFollowThunkCreator}
 			/>
 		</>
 	}
@@ -71,7 +71,8 @@ const mapStateToProps = (state: AppStateType) => {
 		pageSize: state.usersPage.pageSize,
 		totalUsersCount: state.usersPage.totalUsersCount,
 		currentPage: state.usersPage.currentPage,
-		inProgress: state.usersPage.inProgress
+		inProgress: state.usersPage.inProgress,
+		followingInProgress: state.usersPage.followingInProgress
 	}
 }
 
@@ -99,11 +100,11 @@ const mapStateToProps = (state: AppStateType) => {
 // }
 
 export default connect(mapStateToProps, {
-		follow,
-		unFollow,
-		setUsers,
-		setCurrentPage,
-		setTotalUsersCount,
-		setToggle
-	}
-)(UsersContainer)
+	follow,
+	unFollow,
+	setCurrentPage,
+	setToggleFollowingProgress,
+	getUsersThunkCreator,
+	followThunkCreator,
+	unFollowThunkCreator
+})(UsersContainer)

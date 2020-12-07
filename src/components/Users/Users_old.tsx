@@ -14,7 +14,7 @@ export const Users_old = (props: UsersPropsType) => {
 			axios.get('https://social-network.samuraijs.com/api/1.0/users')
 				.then(response => {
 					users = response.data.items
-					props.setUsers(users);
+					// props.setUsers(users);
 				})
 		}
 	}
