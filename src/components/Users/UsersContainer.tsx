@@ -9,6 +9,7 @@ import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
 import Loader from '../common/Loader/Loader';
 import {withAuthRedirect} from '../../hoc/AuthRedirect';
+import {compose} from 'redux';
 
 export type UsersPropsType = {
 	users: Array<userType>
@@ -68,14 +69,27 @@ const mapStateToProps = (state: AppStateType) => {
 	}
 }
 
-const withRedirect = withAuthRedirect(UsersContainer)
+// const withRedirect = withAuthRedirect(UsersContainer)
+//
+// export default connect(mapStateToProps, {
+// 	follow,
+// 	unFollow,
+// 	setCurrentPage,
+// 	setToggleFollowingProgress,
+// 	getUsersThunkCreator,
+// 	followThunkCreator,
+// 	unFollowThunkCreator
+// })(withRedirect)
 
-export default connect(mapStateToProps, {
-	follow,
-	unFollow,
-	setCurrentPage,
-	setToggleFollowingProgress,
-	getUsersThunkCreator,
-	followThunkCreator,
-	unFollowThunkCreator
-})(withRedirect)
+export default compose(
+	withAuthRedirect,
+	connect(mapStateToProps, {
+		follow,
+		unFollow,
+		setCurrentPage,
+		setToggleFollowingProgress,
+		getUsersThunkCreator,
+		followThunkCreator,
+		unFollowThunkCreator
+	})
+)(UsersContainer)
