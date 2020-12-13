@@ -32,8 +32,7 @@ export type ContactsType = {
 
 
 const ProfileInfo = (props: any) => {
-  console.log(props)
-
+  console.log(props.profile)
   if (!props.profile) {
     return <Loader />
   }
@@ -43,6 +42,7 @@ const ProfileInfo = (props: any) => {
       <div className={profileInfo.info}>
         <img className={profileInfo.ava__img} src={props.profile.photos.small}/>
         <p className={profileInfo.name}>{props.profile.fullName}</p>
+        <p className={profileInfo.status}>{props.profile.lookingForAJobDescription}</p>
       </div>
 
       <div className={profileInfo.social}>

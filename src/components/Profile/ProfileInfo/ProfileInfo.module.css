@@ -42,7 +42,7 @@
 
 .info {
   position: absolute;
-  bottom: 40px;
+  bottom: 10px;
   text-align: center;
   width: 100%;
 }
@@ -53,4 +53,15 @@
   padding: 0 20px;
   justify-content: space-between;
   align-items: center;
+}
+
+.status {
+  margin: 0;
+  text-decoration: overline;
+  font-style: italic;
+  padding-top: 5px;
+}
+
+.status:first-letter  {
+  text-transform: capitalize;
 }

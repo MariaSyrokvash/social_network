@@ -8,14 +8,15 @@ type ActionType =
 	setUserDataACType
 
 
-const initialState: initialUsersStateType = {
+const initialState ={
 	userId: null,
 	login: null,
 	email: null,
 	isFetching: false,
 	isAuth: false
-}
-export type initialUsersStateType = {
+};
+
+export type InitialUsersStateType = {
 	userId: null | number
 	login: null | string
 	email: null | string
@@ -23,8 +24,16 @@ export type initialUsersStateType = {
 	isAuth: boolean
 }
 
+// export type InitialUsersStateType = typeof initialState;
 
-export const setAuthUserDataAC = (userID: number, email: string, login: string) => ({type: SET_USER_DATA, data: {userID, email, login} } as const)
+export const setAuthUserDataAC = (userID: number, email: string, login: string) => ( {
+	type: SET_USER_DATA,
+	data: {
+		userID, email, login
+		}
+	} as const)
+
+
 export  const getAuthUserData = () => (dispatch: any) => {
 	authAPI.getAuthMe()
 		.then(data => {
@@ -35,7 +44,7 @@ export  const getAuthUserData = () => (dispatch: any) => {
 		})
 }
 
-export const authReducer = (state: initialUsersStateType = initialState, action: ActionType): initialUsersStateType => {
+export const authReducer = (state: InitialUsersStateType = initialState, action: ActionType): InitialUsersStateType => {
 
 	switch (action.type) {
 		case SET_USER_DATA:

@@ -8,6 +8,7 @@ import {
 import {AppStateType} from '../../redux/redux-store';
 import Users from './Users';
 import Loader from '../common/Loader/Loader';
+import {withAuthRedirect} from '../../hoc/AuthRedirect';
 
 export type UsersPropsType = {
 	users: Array<userType>
@@ -34,15 +35,6 @@ class UsersContainer extends Component<UsersPropsType, {}> {
 
 	onPageChanged = (page: number) => {
 		this.props.getUsersThunkCreator(page, this.props.pageSize)
-
-		// this.props.setCurrentPage(page);
-		// this.props.setToggle(true)
-		//
-		// userAPI.getUsers(page, this.props.pageSize)
-		// 	.then(data => {
-		// 		this.props.setToggle(false)
-		// 		this.props.setUsers(data.items);
-		// 	})
 	}
 
 	render() {
@@ -76,28 +68,7 @@ const mapStateToProps = (state: AppStateType) => {
 	}
 }
 
-// const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
-// 	return {
-// 		follow: (userID: number) => {
-// 			dispatch(followAC(userID))
-// 		},
-// 		unFollow: (userID: number) => {
-// 			dispatch(unFollowAC(userID))
-// 		},
-// 		setUsers: (users: any) => {
-// 			dispatch(setUsersAC(users))
-// 		},
-// 		setCurrentPage: (currentPage: number) => {
-// 			dispatch(currentPageAC(currentPage))
-// 		},
-// 		setTotalUsersCount: (totalCount: number) => {
-// 			dispatch(totalUsersCountAC(totalCount))
-// 		},
-// 		setToggle: (loader: boolean) => {
-// 			dispatch(toggleLoaderAC(loader))
-// 		}
-// 	}
-// }
+const withRedirect = withAuthRedirect(UsersContainer)
 
 export default connect(mapStateToProps, {
 	follow,
@@ -107,4 +78,4 @@ export default connect(mapStateToProps, {
 	getUsersThunkCreator,
 	followThunkCreator,
 	unFollowThunkCreator
-})(UsersContainer)
+})(withRedirect)
