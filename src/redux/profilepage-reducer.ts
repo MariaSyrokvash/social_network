@@ -1,29 +1,23 @@
 import {v1} from 'uuid';
-import { MyPostsType, ProfilePageType} from './store';
+import {MyPostsType, ProfilePageType} from './store';
 import {profileAPI} from '../api/api';
 
 const ADD_NEW_POST = 'addNewPost'
-const TRACK_TEXTAREA = 'trackTextarea'
 const SET_USER_PROFILE = 'setUserProfile'
+const SET_STATUS = 'SET_STATUS'
 
 type AddNewPostActionType = ReturnType<typeof addNewPostActionCreator>
-type TrackTextareaActionType = ReturnType<typeof onPostChangeActionCreator>
 type setUserProfileActionType = ReturnType<typeof setUserProfile>
+type setStatusActionType = ReturnType<typeof setStatus>
 
 type ActionType =
 	AddNewPostActionType
-	| TrackTextareaActionType
 	| setUserProfileActionType
+	| setStatusActionType
 
 export const addNewPostActionCreator = () => {
 	return {
 		type: ADD_NEW_POST
-	} as const
-}
-export const onPostChangeActionCreator = (value: string) => {
-	return {
-		type: TRACK_TEXTAREA,
-		newText: value
 	} as const
 }
 
@@ -34,14 +28,38 @@ export const setUserProfile = (profile: any) => {
 	} as const
 }
 
+export const setStatus = (status: string) => {
+	return {
+		type: SET_STATUS,
+		status: status
+	} as const
+}
+
+
 export const getUserProfile = (userID: number) => (dispatch: any) => {
-	return 		profileAPI.getUserProfile(userID)
+	return profileAPI.getUserProfile(userID)
 		.then(data => {
 			dispatch(setUserProfile(data));
 		})
 }
 
+export const getStatus = (userID: number) => (dispatch: any) => {
+	return profileAPI.getStatus(userID)
+		.then(response => {
+			dispatch(setStatus(response.data));
+		})
+}
 
+export const updateStatus = (status: string) => (dispatch: any) => {
+	return profileAPI.updateStatus(status)
+		.then(response => {
+			if (response.data.resultCode === 0) {
+				dispatch(setStatus(status));
+			} else {
+				console.log('resultCode < 0')
+			}
+		})
+}
 
 let initialState: ProfilePageType = {
 	postsData: [
@@ -59,7 +77,8 @@ let initialState: ProfilePageType = {
 		},
 	],
 	newPostContent: '',
-	profile: null
+	profile: null,
+	status: ''
 }
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
@@ -77,17 +96,16 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
 				postsData: [...state.postsData, newPost],
 				newPostContent: ''
 			}
-
-		case TRACK_TEXTAREA: {
-			return {
-				...state,
-				newPostContent: action.newText
-			}
-		}
 		case SET_USER_PROFILE: {
 			return {
 				...state,
 				profile: action.profile
+			}
+		}
+		case SET_STATUS: {
+			return {
+				...state,
+				status: action.status
 			}
 		}
 		default:

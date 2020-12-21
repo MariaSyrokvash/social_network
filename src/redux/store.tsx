@@ -1,19 +1,19 @@
-import {v1} from 'uuid';
-import {
-	addNewPostActionCreator,
-	onPostChangeActionCreator,
-	profilePageReducer,
-	setUserProfile
-} from './profilepage-reducer';
-import {AddNewMessageBodyActionCreator, dialogsPageReducer, SendMessageBodyActionCreator} from './dialogspage-reducer';
-import {navBarPageReducer} from './navBarPage-reducer';
-import {
-	follow,
-	setCurrentPage, setToggle,
-	setTotalUsersCount,
-	setUsers,
-	unFollow
-} from './users-reducer';
+// import {v1} from 'uuid';
+// import {
+// 	addNewPostActionCreator,
+// 	onPostChangeActionCreator,
+// 	profilePageReducer,
+// 	setUserProfile
+// } from './profilepage-reducer';
+// import { dialogsPageReducer, SendMessageBodyActionCreator} from './dialogspage-reducer';
+// import {navBarPageReducer} from './navBarPage-reducer';
+// import {
+// 	follow,
+// 	setCurrentPage, setToggle,
+// 	setTotalUsersCount,
+// 	setUsers,
+// 	unFollow
+// } from './users-reducer';
 
 
 export type MyPostsType = {
@@ -26,6 +26,7 @@ export type ProfilePageType = {
 	postsData: Array<MyPostsType>
 	newPostContent: string
 	profile: null
+	status: string
 }
 export type DialogsDataType = {
 	id: string
@@ -39,8 +40,12 @@ export type MessagesDataType = {
 export type MessagePageType = {
 	messagesData: Array<MessagesDataType>
 	dialogsData: Array<DialogsDataType>
-	newMessageBody: string
 }
+
+export type newMessageBodyType = {
+	newMessageBody?: string
+}
+
 export type NavBarDataType = {
 	id: string
 	friend: string

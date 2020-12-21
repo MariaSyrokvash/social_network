@@ -2,6 +2,10 @@ import React from 'react';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+type mapStateToPropsForRedirect = {
+	isAuth: boolean
+}
+
 const mapStateToPropsForRedirect = (state: any ) => ({
 	isAuth: state.auth.isAuth
 })
@@ -9,8 +13,9 @@ const mapStateToPropsForRedirect = (state: any ) => ({
 export const withAuthRedirect = (Component: any) => {
 
 	const AuthRedirectComponent= (props: any) => {
+		console.log(props)
 		// @ts-ignore
-		if (!this.props.isAuth) return <Redirect to={'/login'}/>
+		if (!props.isAuth) return <Redirect to={'/login'}/>
 
 		return <Component {...props} />
 	}

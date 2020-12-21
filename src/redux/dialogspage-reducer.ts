@@ -1,29 +1,27 @@
 import {v1} from 'uuid';
-import { MessagePageType} from './store';
+import {DialogsDataType, MessagesDataType} from './store';
 
-const ADD_NEW_MESSAGE_BODY = `ADD_NEW_MESSAGE_BODY`;
 const SEND_MESSAGE = ' SEND_MESSAGE';
 
-type AddNewMessageBodyActionType = ReturnType<typeof AddNewMessageBodyActionCreator>
 type SendMessageBodyActionType = ReturnType<typeof SendMessageBodyActionCreator>
 
-type ActionType =
-	 AddNewMessageBodyActionType
-	| SendMessageBodyActionType
+type ActionType = SendMessageBodyActionType
 
-export const AddNewMessageBodyActionCreator = (newMessageBody: string) => {
+export const SendMessageBodyActionCreator = (message: string) => {
 	return {
-		type: ADD_NEW_MESSAGE_BODY,
-		newMessageBody: newMessageBody
-	} as const
-}
-export const SendMessageBodyActionCreator = () => {
-	return {
-		type: SEND_MESSAGE
+		type: SEND_MESSAGE,
+		message
 	} as const
 }
 
-let initialState: MessagePageType = {
+
+type InitialStateType = {
+	messagesData: Array<MessagesDataType>
+	dialogsData: Array<DialogsDataType>
+	newMessageBody?: string | undefined
+}
+
+const initialState = {
 	dialogsData: [
 		{id: v1(), name: 'Boris', image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg'},
 		{id: v1(), name: 'Denis', image: 'https://iqonic.design/themes/socialv/html/images/user/07.jpg'},
@@ -37,24 +35,19 @@ let initialState: MessagePageType = {
 		{id: v1(), message: 'There is the house where my family lives.'},
 		{id: v1(), message: 'We go jogging every Sunday!'},
 		{id: v1(), message: 'They didn’t go to school last year.'},
-	],
-	newMessageBody: ''
+	]
 }
 
 
-export const dialogsPageReducer = (state: MessagePageType = initialState, action: ActionType): MessagePageType => {
+// type InitialStateType = typeof initialState
+
+export const dialogsPageReducer = (state: InitialStateType  = initialState, action: ActionType): InitialStateType => {
 
 	switch (action.type) {
-		case ADD_NEW_MESSAGE_BODY:
-			return {
-				...state,
-				newMessageBody: action.newMessageBody
-			}
 		case SEND_MESSAGE: {
-			const body = state.newMessageBody;
+			const body = action.message;
 			return {
 				...state,
-				newMessageBody: '',
 				messagesData: [...state.messagesData, {id: v1(), message: body}]
 			}
 		}

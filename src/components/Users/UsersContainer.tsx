@@ -28,7 +28,7 @@ export type UsersPropsType = {
 }
 
 
-class UsersContainer extends Component<UsersPropsType, {}> {
+class UsersContainer extends Component<UsersPropsType> {
 
 	componentDidMount(): void {
 		this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)

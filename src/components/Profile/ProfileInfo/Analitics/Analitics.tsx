@@ -1,23 +1,23 @@
 import React from 'react';
-import analitics from './Analitics.module.css';
+import analytics from './Analitics.module.css';
 
-const Analitics = () => {
+const Analytics = () => {
   return (
-    <div className={analitics.wrapper}>
-      <div className={analitics.container}>
-        <p className={analitics.title}>Posts</p>
-        <p className={analitics.text}>690</p>
+    <div className={analytics.wrapper}>
+      <div className={analytics.container}>
+        <p className={analytics.title}>Posts</p>
+        <p className={analytics.text}>690</p>
       </div>
-      <div className={analitics.container}>
-        <p className={analitics.title}>Followers</p>
-        <p className={analitics.text}>206</p>
+      <div className={analytics.container}>
+        <p className={analytics.title}>Followers</p>
+        <p className={analytics.text}>206</p>
       </div>
-      <div className={analitics.container}>
-        <p className={analitics.title}>Following</p>
-        <p className={analitics.text}>100</p>
+      <div className={analytics.container}>
+        <p className={analytics.title}>Following</p>
+        <p className={analytics.text}>100</p>
       </div>
     </div>
   )
 }
 
-export default Analitics;
+export default Analytics;

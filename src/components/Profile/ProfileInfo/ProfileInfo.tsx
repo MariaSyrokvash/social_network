@@ -1,8 +1,10 @@
 import React from 'react';
 import profileInfo from './ProfileInfo.module.css';
 import SocialLink from "./SocialLink/SocialLink";
-import Analitics from "./Analitics/Analitics";
+import Analytics from "./Analitics/Analitics";
 import Loader from '../../common/Loader/Loader';
+import ProfileStatus from '../ProfileStatus/ProfileStatus';
+import ava from './../../../assets/image/usersPage/default_user.png';
 
 export type ProfileInfoType = {
   aboutMe: string | null
@@ -32,23 +34,23 @@ export type ContactsType = {
 
 
 const ProfileInfo = (props: any) => {
-  console.log(props.profile)
   if (!props.profile) {
     return <Loader />
   }
   return (
     <div className={profileInfo.content__wrapper}>
+      <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
       <img className={profileInfo.content__img} src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg1.jpg' alt="bg"/>
       <div className={profileInfo.info}>
-        <img className={profileInfo.ava__img} src={props.profile.photos.small}/>
+        <img className={profileInfo.ava__img} src={props.profile.photos.small? props.profile.photos.small : ava}/>
         <p className={profileInfo.name}>{props.profile.fullName}</p>
         <p className={profileInfo.status}>{props.profile.lookingForAJobDescription}</p>
       </div>
-
       <div className={profileInfo.social}>
         <SocialLink />
-        <Analitics />
+        <Analytics />
       </div>
+
     </div>
   )
 }

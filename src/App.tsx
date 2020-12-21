@@ -20,7 +20,9 @@ const App: React.FC = () => {
 				<div className={app.container}>
 					<NavBar />
 					<div className={app.content}>
+						// @ts-ignore
 						<Route render={() => <DialogsContainer />} path='/dialogs'/>
+						// @ts-ignore
 						<Route render={() => <ProfileContainer /> }  path='/profile/:userID?'/>
 						<Route render={() => <UsersContainer /> }  path='/users'/>
 						<Route render={() => <News/>} path='/news'/>

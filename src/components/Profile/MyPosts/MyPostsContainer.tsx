@@ -1,5 +1,5 @@
 import React from 'react';
-import {addNewPostActionCreator, onPostChangeActionCreator} from '../../../redux/profilepage-reducer';
+import {addNewPostActionCreator} from '../../../redux/profilepage-reducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/redux-store';
@@ -16,11 +16,6 @@ const mapDispatchToProps = (dispatch: any) => {
 	return {
 		addNewPost: () => {
 			dispatch(addNewPostActionCreator())
-		},
-		trackTextarea: (value: string) => {
-			if (value) {
-				dispatch(onPostChangeActionCreator(value))
-			}
 		}
 	}
 }
