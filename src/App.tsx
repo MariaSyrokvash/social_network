@@ -28,6 +28,7 @@ const App: React.FC = () => {
 						<Route render={() => <News/>} path='/news'/>
 						<Route render={() => <Music/>} path='/music'/>
 						<Route render={() => <Settings/>} path='/settings'/>
+						// @ts-ignore
 						<Route render={() => <Login />} path='/login'/>
 					</div>
 				</div>

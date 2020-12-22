@@ -3,16 +3,19 @@ import navbar from './HeaderNavBar.module.css';
 import { NavLink } from 'react-router-dom';
 
 type HeaderNavBarPropsType = {
-	// isAuth: boolean
-	// login: string | null
+	isAuth: boolean
+	login: string | null
+	logout: () => void
 }
 
-const HeaderNavBar = (props: any) => {
+const HeaderNavBar = (props: HeaderNavBarPropsType) => {
 	return (
 		<div className={navbar.wrap}>
 			<div>
 				{
-					props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>
+					props.isAuth
+						? <div>{props.login} - <button onClick={props.logout}>Logout</button> </div>
+						: <NavLink to={'/login'}>Login</NavLink>
 				}
 
 			</div>

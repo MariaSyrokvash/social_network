@@ -1,5 +1,4 @@
 import {v1} from 'uuid';
-import {MyPostsType, ProfilePageType} from './store';
 import {profileAPI} from '../api/api';
 
 const ADD_NEW_POST = 'addNewPost'
@@ -15,9 +14,10 @@ type ActionType =
 	| setUserProfileActionType
 	| setStatusActionType
 
-export const addNewPostActionCreator = () => {
+export const addNewPostActionCreator = (newPostContent: string) => {
 	return {
-		type: ADD_NEW_POST
+		type: ADD_NEW_POST,
+		newPostContent
 	} as const
 }
 
@@ -61,6 +61,19 @@ export const updateStatus = (status: string) => (dispatch: any) => {
 		})
 }
 
+export type MyPostsType = {
+	id: string
+	message: string
+	likeCount: number
+	image: string
+}
+export type ProfilePageType = {
+	postsData: Array<MyPostsType>
+	newPostContent?: string  | undefined
+	profile: null
+	status: string
+}
+
 let initialState: ProfilePageType = {
 	postsData: [
 		{
@@ -76,21 +89,20 @@ let initialState: ProfilePageType = {
 			image: 'https://iqonic.design/themes/socialv/html/images/user/06.jpg'
 		},
 	],
-	newPostContent: '',
 	profile: null,
 	status: ''
 }
+
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
 	switch (action.type) {
 		case ADD_NEW_POST:
 			const newPost: MyPostsType = {
 				id: v1(),
-				message: state.newPostContent,
+				message: action.newPostContent,
 				likeCount: 0,
 				image: 'https://iqonic.design/themes/socialv/html/images/user/01.jpg'
 			}
-
 			return {
 				...state,
 				postsData: [...state.postsData, newPost],

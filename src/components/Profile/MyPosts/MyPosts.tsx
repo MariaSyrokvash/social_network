@@ -1,17 +1,19 @@
 import React from 'react';
 import posts from './MyPosts.module.css';
 import Post from './Post/Post';
-import {MyPostsType} from '../../../redux/store';
 import {Field, InjectedFormProps} from 'redux-form';
 import { reduxForm} from 'redux-form';
+import {MyPostsType} from '../../../redux/profilepage-reducer';
+import { maxLengthCreator, requiredField} from '../../../utils/validators/validators';
+import {Textarea} from '../../common/FormControls/FormControls';
 
 type MyPostsPropsType = {
 	postsData: Array<MyPostsType>
-	// trackTextarea: (value: string) => void
-	addNewPost: () => void
-	newPostContent: string
+	addNewPost: (newPostContent: string) => void
+	newPostContent: string | undefined
 }
 
+const maxLength10 = maxLengthCreator(10)
 
 const MyPosts = (props: MyPostsPropsType) => {
 
@@ -24,21 +26,8 @@ const MyPosts = (props: MyPostsPropsType) => {
 																									 image={post.image}/>)
 
 	const addNewPost = (values: any) => {
-		alert('new Post')
-		// props.addNewPost(values.newPostContent)
+		props.addNewPost(values.newPostContent)
 	}
-
-	// const newPostElement = React.createRef<HTMLTextAreaElement>();y
-	// const addNewPost = () => {
-	// 	props.addNewPost()
-	// }
-	//
-	// const onPostChange = () => {
-	// 	const value = newPostElement.current?.value
-	// 	if (value) {
-	// 		props.trackTextarea(value)
-	// 	}
-	// }
 
 	return (
 		<div>
@@ -57,18 +46,14 @@ type FormDataType = {
 	newPostContent: string
 }
 
-
 const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 	console.log(props)
 	return (
 		<form className={posts.wrap} onSubmit={props.handleSubmit}>
 			<img className={posts.ava} src='https://iqonic.design/themes/socialv/html/images/user/1.jpg'/>
-			<Field className={posts.textarea} component='textarea' name='newPostContent' placeholder="Write something here..."/>
-			{/*<textarea className={posts.textarea}*/}
-			{/*					ref={newPostElement}*/}
-			{/*					value={props.newPostContent}*/}
-			{/*					onChange={onPostChange}*/}
-			{/*					placeholder="Write something here..."></textarea>*/}
+			<Field  component={Textarea} name='newPostContent' placeholder="Write something here..."
+				validate={[requiredField, maxLength10]}
+			/>
 			<button className={posts.add__btn} >Add post</button>
 		</form>
 	)

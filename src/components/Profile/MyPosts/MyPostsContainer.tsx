@@ -14,8 +14,8 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = (dispatch: any) => {
 	return {
-		addNewPost: () => {
-			dispatch(addNewPostActionCreator())
+		addNewPost: (newPostContent: string) => {
+			dispatch(addNewPostActionCreator(newPostContent))
 		}
 	}
 }

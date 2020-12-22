@@ -6,12 +6,16 @@ import {MessagePageType} from '../../redux/store';
 import { Redirect } from 'react-router-dom';
 import {Field, InjectedFormProps} from 'redux-form';
 import { reduxForm} from 'redux-form';
+import {Textarea} from '../common/FormControls/FormControls';
+import {maxLengthCreator, requiredField} from '../../utils/validators/validators';
 
 type DialogsPropsType = {
 	dialogsPage: MessagePageType
 	sendMessage: (newMessageBody: string) => void
 	isAuth: boolean
 }
+
+const maxLength100 = maxLengthCreator(100)
 
 const Dialogs = (props: DialogsPropsType) => {
 
@@ -31,8 +35,7 @@ const Dialogs = (props: DialogsPropsType) => {
 
 	const addNewMessage = (values: any) => {
 		console.log(values)
-		alert(values.newMessageBody)
-			props.sendMessage(values.newMessageBody);
+		props.sendMessage(values.newMessageBody);
 	}
 
 	return (
@@ -47,16 +50,6 @@ const Dialogs = (props: DialogsPropsType) => {
 					<div>{messagesElements}</div>
 				</ul>
 				<DialogsFormDataRedux onSubmit={addNewMessage}/>
-				{/*<form className={dialogs.box}>*/}
-				{/*	<div>*/}
-				{/*		<textarea value={NewMessageBody}*/}
-				{/*							onChange={onChangeHandler}*/}
-				{/*							placeholder='Type your message..' className={dialogs.textarea}></textarea>*/}
-				{/*	</div>*/}
-				{/*	<div>*/}
-				{/*		<button className={dialogs.btn} onClick={onSendMessageHandler}>Send</button>*/}
-				{/*	</div>*/}
-				{/*</form>*/}
 			</div>
 		</div>
 	)
@@ -70,7 +63,10 @@ const DialogsFormData: React.FC<InjectedFormProps<DialogsFormDataType>> = (props
 	return (
 		<form className={dialogs.box} onSubmit={props.handleSubmit}>
 			<div>
-				<Field name={'newMessageBody'} component='textarea' placeholder='Type your message..' className={dialogs.textarea}/>
+				<Field name={'newMessageBody'} placeholder='Type your message..' className={dialogs.textarea}
+							 component={Textarea}
+							 validate={[requiredField, maxLength100]}
+				/>
 			</div>
 			<div>
 				<button className={dialogs.btn}>Send</button>

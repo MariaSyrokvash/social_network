@@ -16,18 +16,6 @@
 // } from './users-reducer';
 
 
-export type MyPostsType = {
-	id: string
-	message: string
-	likeCount: number
-	image: string
-}
-export type ProfilePageType = {
-	postsData: Array<MyPostsType>
-	newPostContent: string
-	profile: null
-	status: string
-}
 export type DialogsDataType = {
 	id: string
 	name: string
@@ -53,12 +41,12 @@ export type NavBarDataType = {
 export type NavbarPageType = {
 	navBarData: Array<NavBarDataType>
 }
-export type stateTypeProps = {
-	profilePage: ProfilePageType
-	dialogsPage: MessagePageType
-	navBarPage: NavbarPageType
-}
-
+// export type stateTypeProps = {
+// 	profilePage: ProfilePageType
+// 	dialogsPage: MessagePageType
+// 	navBarPage: NavbarPageType
+// }
+//
 
 // export type StoreType = {
 // 	_state: stateTypeProps
