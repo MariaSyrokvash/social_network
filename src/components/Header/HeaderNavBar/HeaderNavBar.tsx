@@ -1,27 +1,36 @@
 import React from 'react';
 import navbar from './HeaderNavBar.module.css';
 import { NavLink } from 'react-router-dom';
+import {ProfileInfoType} from '../../Profile/ProfileInfo/ProfileInfo';
 
 type HeaderNavBarPropsType = {
 	isAuth: boolean
 	login: string | null
 	logout: () => void
+	profile: any
 }
 
 const HeaderNavBar = (props: HeaderNavBarPropsType) => {
+	console.log(props.profile)
 	return (
 		<div className={navbar.wrap}>
 			<div>
 				{
 					props.isAuth
-						? <div>{props.login} - <button onClick={props.logout}>Logout</button> </div>
-						: <NavLink to={'/login'}>Login</NavLink>
+						? <div className={navbar.loginWrap}>
+								<div className={navbar.box}>
+									<p className={navbar.title}>{props.login}</p>
+									<img className={navbar.ava} src='https://iqonic.design/themes/socialv/html/images/user/1.jpg' alt='ava'/>
+								</div>
+								<div onClick={props.logout} className={navbar.logout}></div>
+							</div>
+						: <NavLink to={'/login'} className={navbar.login}>Sing In</NavLink>
 				}
 
 			</div>
 			<div className={navbar.containerAva}>
-				<img className={navbar.ava} src='https://iqonic.design/themes/socialv/html/images/user/1.jpg' alt='ava'/>
-				<h3 className={navbar.title}>Bni Cyst</h3>
+				{/*<img className={navbar.ava} src='https://iqonic.design/themes/socialv/html/images/user/1.jpg' alt='ava'/>*/}
+				{/*<h3 className={navbar.title}>Bni Cyst</h3>*/}
 			</div>
 		</div>
 	)

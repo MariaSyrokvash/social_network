@@ -2,6 +2,24 @@
   width: 70%;
 }
 
+.input {
+  height: 43px;
+  vertical-align: middle;
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+  min-width: 490px;
+  padding: 0px 16px;
+  color: #666;
+  border: 1px solid #eceff5;
+  border-radius: 7px;
+  transition: 0.2s ease-in-out;
+  transition-property: color, background-color, border;
+  background-color: #f1f3f4;
+  margin-bottom: 15px;
+}
+
+
 .textarea {
   font-family: Montserrat, sans-serif;
   border: none;
@@ -24,6 +42,7 @@
   border-radius: 5px;
 }
 
+
 .errorMessage{
   margin: 0;
   color: red;
@@ -34,3 +53,5 @@
   border: 2px solid red;
   border-radius: 5px;
 }
+
+

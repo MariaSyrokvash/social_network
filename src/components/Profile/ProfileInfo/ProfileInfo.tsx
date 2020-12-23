@@ -39,10 +39,11 @@ const ProfileInfo = (props: any) => {
   }
   return (
     <div className={profileInfo.content__wrapper}>
-      <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+
       <img className={profileInfo.content__img} src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg1.jpg' alt="bg"/>
       <div className={profileInfo.info}>
         <img className={profileInfo.ava__img} src={props.profile.photos.small? props.profile.photos.small : ava}/>
+        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         <p className={profileInfo.name}>{props.profile.fullName}</p>
         <p className={profileInfo.status}>{props.profile.lookingForAJobDescription}</p>
       </div>

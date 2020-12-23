@@ -4,7 +4,7 @@ import Search from "./SearchInput/Search";
 import HeaderNavBarContainer from './HeaderNavBar/HeaderNavBarContainer';
 
 
-const Header = () => {
+const Header = (props: any) => {
   return (
     <header className={header.header}>
       <div>
@@ -15,7 +15,7 @@ const Header = () => {
         </a>
       </div>
       <Search />
-      <HeaderNavBarContainer />
+      <HeaderNavBarContainer {...props}/>
     </header>
   )
 }

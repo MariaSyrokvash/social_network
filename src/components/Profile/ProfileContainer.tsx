@@ -63,7 +63,7 @@ const mapStateToProps = (state: AppStateType ) => ({
 export default compose(
 	connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
 	withRouter,
-	// withAuthRedirect
+	withAuthRedirect
 )(ProfileContainer)
 
 //тоже самое что и запись через константы:

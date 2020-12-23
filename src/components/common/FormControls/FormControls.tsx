@@ -24,7 +24,6 @@ const FormControl = ({input, meta, child, ...props}) => {
 	const hasError = meta.touched && meta.error
 	return (
 		<div className={`${style.boxTextarea} ${style.formControl} ${hasError ? style.error : ''}`}>
-
 			{props.children}
 			{hasError && <p className={style.errorMessage}>{meta.error}</p>}
 		</div>

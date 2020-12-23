@@ -8,6 +8,7 @@ import {login, logout} from '../../redux/auth-reducer';
 import {Redirect} from 'react-router-dom';
 import {AppStateType} from '../../redux/redux-store';
 import style from './../common/FormControls/FormControls.module.css';
+import loginStyle from './Login.module.css'
 
 // email: "mariya.syrokvash@yandex.ru"
 // password: "1234567890-="
@@ -29,8 +30,8 @@ const Login = (props: LoginType) => {
 	}
 
 	return (
-		<div className={''}>
-			<h2>Login</h2>
+		<div className={loginStyle.box}>
+			<h2 className={loginStyle.title}>Sing In</h2>
 			<LoginReduxForm onSubmit={onSubmit}/>
 		</div>
 	)
@@ -44,12 +45,13 @@ type FormDataType = {
 
 export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
-			<div><Field placeholder={'Email'} name={'email'} component={Input} validate={[requiredField]}/></div>
+		<form onSubmit={props.handleSubmit} className={loginStyle.form}>
+			<div><Field placeholder={'Email'} name={'email'}  component={Input} validate={[requiredField]}/></div>
 			<div><Field placeholder={'Password'} name={'password'} type='password' component={Input} validate={[requiredField]}/></div>
-			<div><Field type="checkbox" component={Input} name={'rememberMe'}/> Remember me</div>
+			<div className={loginStyle.checkBoxWrap}>
+				<Field type="checkbox" component={Input} name={'rememberMe'} /> <span className={loginStyle.remember}>Remember me</span></div>
 			{ props.error && <div className={style.formErrorSummary}> {props.error}</div> }
-			<button type={'submit'}>Login</button>
+			<button type={'submit'} className={loginStyle.loginBtn}>Get Started</button>
 		</form>
 	)
 }

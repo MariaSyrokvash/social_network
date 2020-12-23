@@ -13,7 +13,6 @@ export type ProfilePropsType = {
 }
 
 const Profile = (props: any) => {
-
   return (
     <div className={profile.profile}>
       <ProfileInfo profile={props.profile} updateStatus={props.updateStatus} status={props.status}/>
