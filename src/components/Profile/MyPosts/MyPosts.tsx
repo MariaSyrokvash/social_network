@@ -13,7 +13,7 @@ type MyPostsPropsType = {
 	newPostContent: string | undefined
 }
 
-const maxLength10 = maxLengthCreator(10)
+const maxLength10 = maxLengthCreator(100)
 
 const MyPosts = (props: MyPostsPropsType) => {
 
@@ -47,7 +47,6 @@ type FormDataType = {
 }
 
 const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-	console.log(props)
 	return (
 		<form className={posts.wrap} onSubmit={props.handleSubmit}>
 			<img className={posts.ava} src='https://iqonic.design/themes/socialv/html/images/user/1.jpg'/>

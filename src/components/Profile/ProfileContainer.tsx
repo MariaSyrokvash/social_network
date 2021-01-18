@@ -6,10 +6,9 @@ import {getStatus, getUserProfile, updateStatus} from '../../redux/profilepage-r
 import {withAuthRedirect} from '../../hoc/AuthRedirect';
 import {AppStateType} from '../../redux/redux-store';
 import {compose} from 'redux';
-import {log} from 'util';
 
 type PathParamsType = {
-  userID: string
+	userID: string
 }
 
 type CommonComponentPropsType = RouteComponentProps<PathParamsType> & PropsType
@@ -34,10 +33,14 @@ class ProfileContainer extends React.Component<any, CommonComponentPropsType> {
 
 	componentDidMount() {
 		console.log(this.props.authorizedUserID)
+
 		let userID = this.props.match.params.userID
+		// userID = 12438
 		if (!userID) {
-			userID = 12438
-			// userID = this.props.authorizedUserID
+			userID = this.props.authorizedUserID
+			if (!userID) {
+				this.props.history.push('/login')
+			}
 		}
 
 		this.props.getUserProfile(userID);
@@ -55,8 +58,8 @@ class ProfileContainer extends React.Component<any, CommonComponentPropsType> {
 const mapStateToProps = (state: AppStateType ) => ({
 	profile: state.profilePage.profile,
 	status: state.profilePage.status,
-	authorizedUserID: state.auth.userId,
-	isAuth: state.auth.isAuth
+	authorizedUserID: state.auth.userID,
+	isAuth: state.auth.isAuth,
 })
 
 
@@ -64,7 +67,7 @@ export default compose(
 	connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
 	withRouter,
 	withAuthRedirect
-)(ProfileContainer)
+)(ProfileContainer) as React.FunctionComponent<any>
 
 //тоже самое что и запись через константы:
 // const AuthRedirectComponent = withAuthRedirect(ProfileContainer);

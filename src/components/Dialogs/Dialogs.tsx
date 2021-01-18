@@ -3,7 +3,6 @@ import dialogs from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './MessageItem/MessageItem';
 import {MessagePageType} from '../../redux/store';
-import { Redirect } from 'react-router-dom';
 import {Field, InjectedFormProps} from 'redux-form';
 import { reduxForm} from 'redux-form';
 import {Textarea} from '../common/FormControls/FormControls';

@@ -4,7 +4,7 @@ import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/AuthRedirect';
-import {compose} from 'redux';
+import {compose, Dispatch} from 'redux';
 
 
 const mapStateToProps = (state: AppStateType) => {
@@ -13,7 +13,7 @@ const mapStateToProps = (state: AppStateType) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
 	return {
 		sendMessage: (newMessageBody: string) => {
 			dispatch(SendMessageBodyActionCreator(newMessageBody))
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: any) => {
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps),
 	withAuthRedirect
-)(Dialogs)
+)(Dialogs) as React.FunctionComponent<any>
 
 
 // const AuthRedirectComponent = withAuthRedirect(Dialogs);

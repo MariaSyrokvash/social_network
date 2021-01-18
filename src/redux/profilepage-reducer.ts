@@ -1,5 +1,6 @@
 import {v1} from 'uuid';
 import {profileAPI} from '../api/api';
+import {Dispatch} from 'redux';
 
 const ADD_NEW_POST = 'addNewPost'
 const SET_USER_PROFILE = 'setUserProfile'
@@ -36,7 +37,7 @@ export const setStatus = (status: string) => {
 }
 
 
-export const getUserProfile = (userID: number) => (dispatch: any) => {
+export const getUserProfile = (userID: number) => (dispatch: Dispatch) => {
 	return profileAPI.getUserProfile(userID)
 		.then(data => {
 			dispatch(setUserProfile(data));

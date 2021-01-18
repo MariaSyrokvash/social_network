@@ -1,7 +1,6 @@
 import React from 'react';
 import navbar from './HeaderNavBar.module.css';
 import { NavLink } from 'react-router-dom';
-import {ProfileInfoType} from '../../Profile/ProfileInfo/ProfileInfo';
 
 type HeaderNavBarPropsType = {
 	isAuth: boolean
@@ -11,7 +10,6 @@ type HeaderNavBarPropsType = {
 }
 
 const HeaderNavBar = (props: HeaderNavBarPropsType) => {
-	console.log(props.profile)
 	return (
 		<div className={navbar.wrap}>
 			<div>

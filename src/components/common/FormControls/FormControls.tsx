@@ -5,17 +5,20 @@ import style from './FormControls.module.css';
 export const Textarea = (props) => {
 	const {input, meta, child, ...restProps} = props
 	return (
-		<FormControl {...props}><textarea {...input} {...restProps} className={style.textarea}/></FormControl>
+		<FormControl {...props}>
+			<textarea {...input} {...restProps} className={style.textarea}/>
+		</FormControl>
 	)
 }
 
 
 // @ts-ignore
 export const Input = (props) => {
-	// @ts-ignore
 	const {input, meta, child, ...restProps} = props
 	return (
-		<FormControl {...props}><input {...input} {...restProps} className={style.input}/></FormControl>
+		<FormControl {...props}>
+			<input {...input} {...restProps} className={style.input}/>
+		</FormControl>
 	)
 }
 
