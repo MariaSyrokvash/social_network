@@ -15,7 +15,11 @@ type MyPostsPropsType = {
 
 const maxLength10 = maxLengthCreator(100)
 
-const MyPosts = (props: MyPostsPropsType) => {
+// shouldComponentUpdate(nextProps: Readonly<MyPostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+// 	return nextProps !== this.props || nextState !== this.state
+// }
+
+const MyPosts = React.memo((props: MyPostsPropsType) => {
 
 
 	const postsData = props.postsData
@@ -40,7 +44,7 @@ const MyPosts = (props: MyPostsPropsType) => {
 			</div>
 		</div>
 	)
-}
+})
 
 type FormDataType = {
 	newPostContent: string
