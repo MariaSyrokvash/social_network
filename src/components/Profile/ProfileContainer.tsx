@@ -48,6 +48,8 @@ class ProfileContainer extends React.Component<any, CommonComponentPropsType> {
 	}
 
 	render() {
+		console.log('render from ProfileContainer')
+
 		return (
 			<Profile {...this.props} profile={this.props.profile}
 							 status={this.props.status} updateStatus={this.props.updateStatus}/>
@@ -55,12 +57,15 @@ class ProfileContainer extends React.Component<any, CommonComponentPropsType> {
 	}
 }
 
-const mapStateToProps = (state: AppStateType ) => ({
-	profile: state.profilePage.profile,
-	status: state.profilePage.status,
-	authorizedUserID: state.auth.userID,
-	isAuth: state.auth.isAuth,
-})
+const mapStateToProps = (state: AppStateType ) => {
+	console.log('mapStateToProps render from ProfileContainer')
+		return ({
+			profile: state.profilePage.profile,
+			status: state.profilePage.status,
+			authorizedUserID: state.auth.userID,
+			isAuth: state.auth.isAuth,
+		})
+}
 
 
 export default compose(

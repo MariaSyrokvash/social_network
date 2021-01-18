@@ -10,6 +10,14 @@ import Users from './Users';
 import Loader from '../common/Loader/Loader';
 import {withAuthRedirect} from '../../hoc/AuthRedirect';
 import {compose} from 'redux';
+import {
+	getCurrentPage,
+	getFollowingInProgress,
+	getInProgress,
+	getPageSize,
+	getTotalUsersCount,
+	requestUsersSelector
+} from '../../redux/users-selectors';
 
 export type UsersPropsType = {
 	users: Array<userType>
@@ -60,12 +68,12 @@ class UsersContainer extends Component<UsersPropsType> {
 
 const mapStateToProps = (state: AppStateType) => {
 	return {
-		users: state.usersPage.users,
-		pageSize: state.usersPage.pageSize,
-		totalUsersCount: state.usersPage.totalUsersCount,
-		currentPage: state.usersPage.currentPage,
-		inProgress: state.usersPage.inProgress,
-		followingInProgress: state.usersPage.followingInProgress
+		users: requestUsersSelector(state),
+		pageSize: getPageSize(state),
+		totalUsersCount: getTotalUsersCount(state),
+		currentPage: getCurrentPage(state),
+		inProgress: getInProgress(state),
+		followingInProgress: getFollowingInProgress(state)
 	}
 }
 

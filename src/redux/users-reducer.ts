@@ -124,11 +124,11 @@ export const usersReducer = (state: initialUsersStateType = initialState, action
 }
 
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+export const getUsersThunkCreator = (page: number, pageSize: number) => {
 	return (dispatch: any) => {
 		dispatch(setToggle(true))
-
-		userAPI.getUsers(currentPage, pageSize).then(data => {
+		dispatch(setCurrentPage(page))
+		userAPI.getUsers(page, pageSize).then(data => {
 			dispatch(setToggle(false))
 			dispatch(setUsers(data.items))
 			dispatch(setTotalUsersCount(data.totalCount))

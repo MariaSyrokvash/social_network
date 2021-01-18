@@ -3,7 +3,6 @@ import us from './Users.module.css';
 import defaultImg from '../../assets/image/usersPage/default_user.png';
 import {followThunkCreator, unFollowThunkCreator, userType} from '../../redux/users-reducer';
 import {NavLink} from 'react-router-dom';
-import {userAPI} from '../../api/api';
 
 
 type UsersFuncPropsType = {
