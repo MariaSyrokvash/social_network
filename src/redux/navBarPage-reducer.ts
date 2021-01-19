@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import { NavbarPageType} from './store';
+import {NavbarPageType} from '../components/NavBar/Friends/FriendsContainer';
 
 let initialState: NavbarPageType = {
 	navBarData: [

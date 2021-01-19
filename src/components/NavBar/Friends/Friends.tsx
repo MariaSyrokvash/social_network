@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Friends.module.css';
-import {NavBarDataType} from "../../../redux/store";
+import {NavBarDataType} from './FriendsContainer';
 
 type FriendsTypeProps = {
   navBarData: Array<NavBarDataType>

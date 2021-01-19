@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {DialogsDataType, MessagesDataType} from './store';
+import {DialogsDataType, MessagesDataType} from '../components/Dialogs/Dialogs';
 
 const SEND_MESSAGE = ' SEND_MESSAGE';
 

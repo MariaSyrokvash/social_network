@@ -1,8 +1,7 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import dialogs from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './MessageItem/MessageItem';
-import {MessagePageType} from '../../redux/store';
 import {Field, InjectedFormProps} from 'redux-form';
 import { reduxForm} from 'redux-form';
 import {Textarea} from '../common/FormControls/FormControls';
@@ -12,6 +11,21 @@ type DialogsPropsType = {
 	dialogsPage: MessagePageType
 	sendMessage: (newMessageBody: string) => void
 	isAuth: boolean
+}
+
+export type DialogsDataType = {
+	id: string
+	name: string
+	image: string
+}
+export type MessagesDataType = {
+	id: string
+	message: string
+}
+
+export type MessagePageType = {
+	messagesData: Array<MessagesDataType>
+	dialogsData: Array<DialogsDataType>
 }
 
 const maxLength100 = maxLengthCreator(100)

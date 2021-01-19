@@ -16,37 +16,11 @@
 // } from './users-reducer';
 
 
-export type DialogsDataType = {
-	id: string
-	name: string
-	image: string
-}
-export type MessagesDataType = {
-	id: string
-	message: string
-}
-export type MessagePageType = {
-	messagesData: Array<MessagesDataType>
-	dialogsData: Array<DialogsDataType>
-}
 
-export type newMessageBodyType = {
-	newMessageBody?: string
-}
-
-export type NavBarDataType = {
-	id: string
-	friend: string
-}
-export type NavbarPageType = {
-	navBarData: Array<NavBarDataType>
-}
-// export type stateTypeProps = {
-// 	profilePage: ProfilePageType
-// 	dialogsPage: MessagePageType
-// 	navBarPage: NavbarPageType
+// type newMessageBodyType = {
+// 	newMessageBody?: string
 // }
-//
+
 
 // export type StoreType = {
 // 	_state: stateTypeProps
@@ -153,3 +127,4 @@ export type NavbarPageType = {
 // export default store;
 
 
+export default undefined
