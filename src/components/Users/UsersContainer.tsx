@@ -39,11 +39,13 @@ export type UsersPropsType = {
 class UsersContainer extends Component<UsersPropsType> {
 
 	componentDidMount(): void {
-		this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+		const {currentPage, pageSize} = this.props
+		this.props.getUsersThunkCreator(currentPage, pageSize)
 	}
 
 	onPageChanged = (page: number) => {
-		this.props.getUsersThunkCreator(page, this.props.pageSize)
+		const {pageSize} = this.props
+		this.props.getUsersThunkCreator(page, pageSize)
 	}
 
 	render() {

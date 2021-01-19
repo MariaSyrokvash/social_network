@@ -22,7 +22,7 @@ type LoginType = {
 }
 
 const Login = (props: LoginType) => {
-	const onSubmit= (formData: FormDataType) => {
+	const onSubmit = (formData: FormDataType) => {
 		props.login(formData.email, formData.password, formData.rememberMe)
 	}
 	if (props.isAuth) {
@@ -43,14 +43,16 @@ type FormDataType = {
 	rememberMe: boolean
 }
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 	return (
-		<form onSubmit={props.handleSubmit} className={loginStyle.form}>
-			<div><Field placeholder={'Email'} name={'email'}  component={Input} validate={[requiredField]}/></div>
-			<div><Field placeholder={'Password'} name={'password'} type='password' component={Input} validate={[requiredField]}/></div>
+		<form onSubmit={handleSubmit} className={loginStyle.form}>
+			<div><Field placeholder={'Email'} name={'email'} component={Input} validate={[requiredField]}/></div>
+			<div><Field placeholder={'Password'} name={'password'} type='password' component={Input}
+									validate={[requiredField]}/></div>
 			<div className={loginStyle.checkBoxWrap}>
-				<Field type="checkbox" component={Input} name={'rememberMe'} /> <span className={loginStyle.remember}>Remember me</span></div>
-			{ props.error && <div className={style.formErrorSummary}> {props.error}</div> }
+				<Field type="checkbox" component={Input} name={'rememberMe'}/> <span
+				className={loginStyle.remember}>Remember me</span></div>
+			{error && <div className={style.formErrorSummary}> {error}</div>}
 			<button type={'submit'} className={loginStyle.loginBtn}>Get Started</button>
 		</form>
 	)

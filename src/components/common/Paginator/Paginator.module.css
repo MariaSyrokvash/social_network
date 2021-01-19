@@ -1,0 +1,18 @@
+.selected {
+	display: inline-block;
+	cursor: pointer;
+	font-size: larger;
+	color: crimson;
+	margin-left: 5px;
+}
+
+.pagination_wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.page {
+	display: flex;
+	cursor: pointer;
+	padding-left: 4px;
+}

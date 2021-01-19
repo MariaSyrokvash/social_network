@@ -3,11 +3,10 @@ import profileInfo from './ProfileInfo.module.css';
 import SocialLink from "./SocialLink/SocialLink";
 import Analytics from "./Analitics/Analitics";
 import Loader from '../../common/Loader/Loader';
-import ProfileStatus from '../ProfileStatus/ProfileStatus';
 import ava from './../../../assets/image/usersPage/default_user.png';
 import {ProfileStatusWithHooks} from '../ProfileStatus/ProfileStatusWithHooks';
 
-export type ProfileInfoType = {
+export type ProfileType = {
   aboutMe: string | null
   contacts: ContactsType
   fullName: string
@@ -16,12 +15,10 @@ export type ProfileInfoType = {
   photos: PhotoType
   userId: number
 }
-
 export type PhotoType = {
   small: string | null
   large: string | null
 }
-
 export type ContactsType = {
   facebook: string | null
   github: string | null
@@ -33,14 +30,19 @@ export type ContactsType = {
   youtube: string | null
 }
 
+type ProfileInfoType = {
+  profile: ProfileType
+  status: string
+  updateStatus: (status: string) => void
+}
 
-const ProfileInfo = (props: any) => {
+
+const ProfileInfo = (props: ProfileInfoType) => {
   if (!props.profile) {
     return <Loader />
   }
   return (
     <div className={profileInfo.content__wrapper}>
-
       <img className={profileInfo.content__img} src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg1.jpg' alt="bg"/>
       <div className={profileInfo.info}>
         <img className={profileInfo.ava__img} src={props.profile.photos.small? props.profile.photos.small : ava}/>
@@ -52,7 +54,6 @@ const ProfileInfo = (props: any) => {
         <SocialLink />
         <Analytics />
       </div>
-
     </div>
   )
 }

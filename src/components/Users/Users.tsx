@@ -1,8 +1,8 @@
 import React from 'react';
 import us from './Users.module.css';
-import defaultImg from '../../assets/image/usersPage/default_user.png';
-import {followThunkCreator, unFollowThunkCreator, userType} from '../../redux/users-reducer';
-import {NavLink} from 'react-router-dom';
+import { userType} from '../../redux/users-reducer';
+import {Paginator} from '../common/Paginator/Paginator';
+import {User} from './User';
 
 
 type UsersFuncPropsType = {
@@ -19,64 +19,19 @@ type UsersFuncPropsType = {
 	unFollowThunkCreator: (userID: number) => void
 }
 
-
 const Users = (props: UsersFuncPropsType) => {
-
-	const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-
-	const pages = [];
-
-	for (let i = 1; i <= pagesCount; i++) {
-		pages.push(i)
-	}
-
-
 	return (
 		<div className={us.box_wrap}>
-			<div className={us.pagination_wrap}>
-				{pages.map((page, ind) => {
-					return <span onClick={() => {
-						props.onPageChanged(page)
-					}} key={ind} className={props.currentPage === page ? us.selected : us.page}>{page}</span>
-				})}
-			</div>
+			<Paginator pageSize={props.pageSize} currentPage={props.currentPage} onPageChanged={props.onPageChanged}
+								 totalUsersCount={props.totalUsersCount}/>
 			<div className={us.titleBox}>
 				<h2 className={us.title}>Friend Lists</h2>
 				<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg7.jpg' className={us.box_bg}/>
 			</div>
 			<div className={us.box}>
 				{props.users.map(user => {
-
-					const unFollowing = () => {
-						props.unFollowThunkCreator(user.id)
-					}
-					const following = () => {
-						props.followThunkCreator(user.id)
-					}
-
-					return (
-						<div key={user.id} className={us.container}>
-							<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg8.jpg'
-									 className={us.bg}/>
-							<div className={us.wrapper}>
-								<NavLink to={'/profile/' + user.id}>
-									<img src={user.photos.small === null ? defaultImg : user.photos.small} className={us.avatar}/>
-								</NavLink>
-
-								<div className={us.inner}>
-									<p className={us.name}>@{user.name}</p>
-									<p>{user.status}</p>
-									{
-										user.followed ?
-											<button disabled={props.followingInProgress.some(id => id === user.id)} onClick={unFollowing}
-															className={us.follow_btn}>Unfollow</button> :
-											<button disabled={props.followingInProgress.some(id => id === user.id)} onClick={following}
-															className={us.follow_btn}>Follow</button>
-									}
-								</div>
-							</div>
-						</div>
-					)
+					return <User followingInProgress={props.followingInProgress} followThunkCreator={props.followThunkCreator}
+											 unFollowThunkCreator={props.unFollowThunkCreator} user={user} key={user.id}/>
 				})
 				}
 			</div>

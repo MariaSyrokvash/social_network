@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import {profilePageReducer} from './profilepage-reducer';
 import {dialogsPageReducer} from './dialogspage-reducer';
 import {navBarPageReducer} from './navBarPage-reducer';
@@ -23,8 +23,8 @@ const reducers = combineReducers({
 export type RootReducerType = typeof reducers;
 export type AppStateType = ReturnType<RootReducerType>
 
-export const store = createStore(reducers, applyMiddleware(thunkMiddleware))
-
-
+// export const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 // @ts-ignore
-window.store = store
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)))
+

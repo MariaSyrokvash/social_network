@@ -16,16 +16,11 @@ import {initializeAppTC} from './redux/app-reducer';
 import {AppStateType} from './redux/redux-store';
 import Loader from './components/common/Loader/Loader';
 
-// type AppType = {
-// 	getAuthUserData: () => (dispatch: Dispatch) => void
-// }
-
 
 class App extends React.Component<any, any> {
 
 	componentDidMount() {
 		this.props.initializeAppTC()
-		// this.props.getAuthUserData()
 	}
 
 	render() {
