@@ -2,20 +2,23 @@ import React from 'react';
 import app from './App.module.css';
 import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
-import {Route, withRouter} from 'react-router-dom';
+import {BrowserRouter, Route, withRouter} from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
+// import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
+// import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
-import {connect} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import {compose} from 'redux';
 import {initializeAppTC} from './redux/app-reducer';
-import {AppStateType} from './redux/redux-store';
+import {AppStateType, store} from './redux/redux-store';
 import Loader from './components/common/Loader/Loader';
+import {withSuspense} from './hoc/withSuspence';
 
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 class App extends React.Component<any, any> {
 
@@ -24,8 +27,8 @@ class App extends React.Component<any, any> {
 	}
 
 	render() {
-		if(!this.props.initialized) {
-			return <Loader />
+		if (!this.props.initialized) {
+			return <Loader/>
 		}
 		return (
 			<div className={app.app}>
@@ -33,8 +36,8 @@ class App extends React.Component<any, any> {
 				<div className={app.container}>
 					<NavBar/>
 					<div className={app.content}>
-						<Route render={() => <DialogsContainer/>} path='/dialogs'/>
-						<Route render={() => <ProfileContainer/>} path='/profile/:userID?'/>
+						<Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+						<Route path='/profile/:userID?' render={withSuspense(ProfileContainer)}/>
 						<Route render={() => <UsersContainer/>} path='/users'/>
 						<Route render={() => <News/>} path='/news'/>
 						<Route render={() => <Music/>} path='/music'/>
@@ -53,6 +56,14 @@ const mapStateToProps = (state: AppStateType) => ({
 })
 
 
-export default compose(
+const AppContainer = compose(
 	withRouter,
 	connect(mapStateToProps, {initializeAppTC}))(App) as React.FunctionComponent<any>
+
+export const MainApp = () => {
+	return <BrowserRouter>
+		<Provider store={store}>
+			<AppContainer/>
+		</Provider>
+	</BrowserRouter>
+}

@@ -23,7 +23,7 @@ const Users = (props: UsersFuncPropsType) => {
 	return (
 		<div className={us.box_wrap}>
 			<Paginator pageSize={props.pageSize} currentPage={props.currentPage} onPageChanged={props.onPageChanged}
-								 totalUsersCount={props.totalUsersCount}/>
+								 totalItemsCount={props.totalUsersCount}/>
 			<div className={us.titleBox}>
 				<h2 className={us.title}>Friend Lists</h2>
 				<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg7.jpg' className={us.box_bg}/>
