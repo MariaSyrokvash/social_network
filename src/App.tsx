@@ -61,7 +61,7 @@ const AppContainer = compose(
 	connect(mapStateToProps, {initializeAppTC}))(App) as React.FunctionComponent<any>
 
 export const MainApp = () => {
-	return <BrowserRouter>
+	return <BrowserRouter basename={process.env.PUBLIC_URL}>
 		<Provider store={store}>
 			<AppContainer/>
 		</Provider>
