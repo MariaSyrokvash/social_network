@@ -11,9 +11,6 @@ const SET_STATUS = 'PROFILE/SET_STATUS'
 const DELETE_POST = 'PROFILE/DELETE_POST'
 const SAVE_PHOTO_SUCCESS = 'PROFILE/SAVE_PHOTO_SUCCESS'
 
-
-
-
 export type MyPostsType = {
 	id: string
 	message: string

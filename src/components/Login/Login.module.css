@@ -87,3 +87,8 @@ input[type=checkbox]:checked:after {
 .box {
   padding-top: 50px;
 }
+
+.captchaImg {
+  width: 140px;
+  height: 60px;
+}

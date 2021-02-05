@@ -7,6 +7,7 @@ import ava from './../../../assets/image/usersPage/default_user.png';
 import {ProfileStatusWithHooks} from '../ProfileStatus/ProfileStatusWithHooks';
 import ProfileDataForm from './ProfileDataForm';
 import {ContactsType, ProfileType} from '../../../types/types';
+import s from './ProfileDataForm.module.css';
 
 
 type ProfileInfoType = {
@@ -90,19 +91,15 @@ const ProfileData: FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode})
 					<b>Full name</b>: {profile.fullName}
 				</div>
 				<div>
-					<b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'no'}
+					<b>Looking for a job</b>: {profile.lookingForAJob ? 'Yes' : 'No'}
 				</div>
 				{profile.lookingForAJob &&
-        <div>
-          <b>My professional skills</b>: {profile.lookingForAJobDescription}
-        </div>
-				}
-
+        <div><b>My professional skills</b>: {profile.lookingForAJobDescription}</div>}
 				<div>
 					<b>About me</b>: {profile.aboutMe}
 				</div>
 				<div>
-					<b>Contacts</b>: {
+					<div className={profileInfo.contacts}><b>Contacts:</b></div> {
 					Object
 						.keys(profile.contacts)
 						.map((key) => {
@@ -121,9 +118,9 @@ type ContactsPropsType = {
 
 const Contact: FC<ContactsPropsType> = ({contactTitle, contactValue}) => {
 	return (
-		<div>
-			<p><b>{contactTitle}</b></p>
-			<p><b>{contactValue}</b></p>
+		<div className={s.contactsBox}>
+			<span><b>{contactTitle}</b></span>
+			<span><b>{contactValue}</b></span>
 		</div>
 	)
 }

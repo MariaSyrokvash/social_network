@@ -14,7 +14,9 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType, PropsType> & PropsType>
 
 	return (
 		<form onSubmit={handleSubmit} className={s.box}>
-			<div><button>save</button></div>
+			<div>
+				<button>save</button>
+			</div>
 			{error && <div className={s.error}>{error}</div>}
 			<div>
 				<b>Full name</b>: {createField<ProfileTypeKeys>("Full name", "fullName", [], Input)}
@@ -33,7 +35,8 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType, PropsType> & PropsType>
 				{ createField<ProfileTypeKeys>("About me", "aboutMe", [], Textarea  )}
 			</div>
 			<div>
-				<b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+				<div className={s.contacts}><b>Contacts:</b></div>
+				{Object.keys(profile.contacts).map(key => {
 				return <div key={key} >
 					<b>{key}: {createField(key, "contacts." + key, [], Input)}</b>
 				</div>

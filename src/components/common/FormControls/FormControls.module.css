@@ -38,8 +38,8 @@
 
 .formControl.error textarea,
 .formControl.error input {
-  border: 2px solid red;
   border-radius: 5px;
+  color: red;
 }
 
 
@@ -50,7 +50,7 @@
 
 
 .formErrorSummary {
-  border: 2px solid red;
+  color: red;
   border-radius: 5px;
 }
 

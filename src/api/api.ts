@@ -71,8 +71,8 @@ export const authAPI = {
 				return response.data;
 			})
 	},
-	login(email: string, password: string, rememberMe: boolean = false) {
-		return instance.post('auth/login', {email, password, rememberMe})
+	login(email: string, password: string, rememberMe: boolean = false, captcha: null | string = null) {
+		return instance.post('auth/login', {email, password, rememberMe, captcha})
 			.then(response => {
 				return response.data;
 			})
@@ -82,5 +82,15 @@ export const authAPI = {
 			.then(response => {
 				return response.data;
 			})
+	}
+}
+
+type GetCaptchaUrlResponseType = {
+	url: string
+}
+
+export const securityAPI = {
+	getCaptchaUrl() {
+		return instance.get<GetCaptchaUrlResponseType>(`security/get-captcha-url`).then(res => res.data);
 	}
 }
