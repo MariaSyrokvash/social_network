@@ -4,13 +4,12 @@ import Post from './Post/Post';
 import {Field, InjectedFormProps} from 'redux-form';
 import { reduxForm} from 'redux-form';
 import {MyPostsType} from '../../../redux/profilepage-reducer';
-import { maxLengthCreator, requiredField} from '../../../utils/validators/validators';
+import {maxLengthCreator, requiredField} from '../../../utils/validators/validators';
 import {Textarea} from '../../common/FormControls/FormControls';
 
 type MyPostsPropsType = {
 	postsData: Array<MyPostsType>
 	addNewPost: (newPostContent: string) => void
-	newPostContent: string | undefined
 }
 
 const maxLength10 = maxLengthCreator(100)

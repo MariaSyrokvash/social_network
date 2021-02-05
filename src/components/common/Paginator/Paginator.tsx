@@ -36,18 +36,18 @@ export const Paginator = ({
 		<div className={us.pagination_wrap}>
 
 			{ portionNumber > 1 &&
-      <button onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button> }
+      <button className={us.prevBtn} onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button> }
 
 			{pages
 				.filter(page =>  page >= leftPortionPageNumber && page <= rightPortionPageNumber)
 				.map((page, ind) => {
-				return <span onClick={() => {
+				return <p  onClick={() => {
 					onPageChanged && onPageChanged(page)
-				}} key={ind} className={currentPage === page ? us.selected : us.page}>{page}</span>
+				}} key={ind} className={currentPage === page ? us.selected : us.page}>{page}</p>
 			})}
 
 			{ portionCount > portionNumber &&
-      <button onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button> }
+      <button className={us.nextBtn}   onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button> }
 		</div>
 	)
 }
